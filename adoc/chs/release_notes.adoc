@@ -3,13 +3,39 @@
 [[release_notes]]
 == Release Notes
 
+版本 8::
++
+--
+. 现在第一次打开项目是通过导入向导来做了。参阅<<open_project>>了解细节。
+
+. 项目模型现在保存在 `.idea` 文件夹的一个文件内，所以不会每次在打开项目时进行 Gradle 同步。
+
+. 通过 *Run/Debug Configuration* 编辑器现在可以选择运行应用程序服务的 JDK 版本。在 *Configuration* 标签页有 *JVM* 字段。默认使用 `JAVA_HOME` 环境变量的值。
+
+. 可以通过标准的 *Refactor > Rename* 操作来对视图进行重命名。在 CUBA 项目树中可以在视图元素上调用这个操作，也可以在 `views.xml` 文件的视图 XML 定义中的 `name` 属性调用这个操作或者在界面 XML 描述中任何引用该视图的地方调用。
+
+. 可以在界面设计器中数据容器的 *view* 字段调用视图编辑器。
+
+. 实现了在界面描述的 `<fragment>` XML 元素中对 `screen` 属性的自动完成功能以及使用参考功能。
+
+. 为菜单标题实现了本地化名称编辑器。在 CUBA 项目树中点击 *Generic UI > Web Menu*，切换到 *Structure* 标签页，选择一个菜单项然后在 *Caption* 字段点击 *edit* 即可。
+
+. 如果枚举值没有本地化名称，编辑器则会出现警告。如果发现该警告，可以使用 *Create message in the message bundle* 快速修复来创建默认名称。
+
+. 实现了在配置接口中声明应用程序属性时，能自动完成其名称。当定义 `app.properties` 或 `web-app.properties` 内的属性时，按下 Ctrl+Space 即可。
+
+. 所有解决了的问题：
+
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%208.0.*%20Fixed%20in%20builds:%208.1.*[Studio 8.0-8.1 Resolved Issues\]]
+--
 
 版本 7::
 +
 --
 . 如果你的项目基于 CUBA 6.10 ，并使用了 BPM 、图表 、全文搜索或报表等高级扩展组件，则需要在 `~/.gradle/gradle.properties` 文件中设置 premium 仓库的访问凭据，如 {main_man_url}/access_to_repo.html#access_to_premium_repo[开发人员手册]所述。 Studio不会将凭据传递给Gradle。
 
-. 所有解决了的问题::
+. 所有解决了的问题：
+
 ** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%207.3.*%20Fixed%20in%20builds:%207.4.*[Studio 7.3-7.4 解决的问题\]]
 
 ** https://youtrack.cuba-platform.com/issues/STUDIO?q=Milestone:%20%7BRelease%207%7D%20State:%20Fixed,%20Verified%20Fix%20versions:%207.2%20Affected%20versions:%20-SNAPSHOT%20sort%20by:%20created%20asc[Studio 7.2 解决的问题]

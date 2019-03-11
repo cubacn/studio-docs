@@ -18,14 +18,13 @@
 --
 如果还没有在此计算机上通过 CUBA Studio 打开该项目，例如，只是通过 VCS 下载了代码，请执行以下操作：
 
-. 单击 *Open* 并在文件系统对话框中选择项目的 `build.gradle` 文件，然后点击 *Open* 按钮。
+. 在欢迎窗口，点击 *Import Project*。如果已经打开了另一个项目，则在主菜单点击 *File > New > Project from Existing Sources*。
 
-. 在 *Open Project* 对话框中选择 *Open as Project*。
+. 在文件系统的窗口，选择项目的根目录（包含 `build.gradle` 文件），然后点击 *Open* 按钮。
 
-. 在 *Import Project from Gradle* 对话框中：
-* 选择 *Use auto-import* 复选框。
-* 在 *Gradle JVM* 字段中选择 `Use JAVA_HOME`。如果在下拉列表中没有看到此选项，请确保已按照 CUBA 开发人员手册的 {main_man_url}/setup.html[安装] 部分中的说明正确配置了开发环境。
-* 点击 *OK*.
+. 在 *Import Project* 窗口，选择 *Import project from external model* 单选按钮并在下面的列表中选择 *CUBA*，然后点击 *Next*。
+
+. 在导入向导的下一页点击 *Finish*。
 
 * 等待 Gradle 同步和项目索引过程完成。CUBA 项目树会出现在 *Project* 工具窗口中。
 
@@ -49,5 +48,5 @@ CUBA Studio 支持基于 CUBA 6.10+和 7.0 的项目。可以打开在旧版本�
 
 . 如果项目使用 Git 做版本控制，将 `.idea` 行添加到项目根目录下的 `.gitignore` 文件中。确保本地 IDE 设置不会在项目的所有开发人员之间共享。
 
-. 打开 `build.gradle` 文件，参考 *首次打开项目* 部分所述。
+. 按照上面 *首次打开项目* 部分所述导入项目。
 --
