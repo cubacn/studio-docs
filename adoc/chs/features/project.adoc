@@ -1,0 +1,12 @@
+:sourcesdir: ../../../../source
+
+[[project]]
+=== 项目
+
+本节介绍可用于管理项目基础设施的编辑器和命令。
+
+include::project/project_properties.adoc[]
+
+include::project/modules.adoc[]
+
+include::project/deployment.adoc[]

@@ -1,0 +1,83 @@
+:sourcesdir: ../../../source
+
+[[project_tree]]
+=== CUBA 项目树
+
+CUBA 项目树用于展示项目结构及其重要元素，通常在 IDE 左侧的 *Project* 工具窗口中打开。可以使用 *CUBA > Project Tree* <<ui_menu,主菜单>>命令或在 *Project* 工具窗口的顶部下拉列表中选择 *CUBA* 来切换到项目树。
+
+项目树包含以下元素：
+
+image::ui/cuba_tree.png[align="center"]
+
+////
+[source, plain]
+----
+CUBA
+    Application
+            http://localhost:8080/app
+    Project
+        Properties
+        Build Script
+            build.gradle
+            settings.gradle
+        Modules
+            global
+                metadata.xml
+                persistence.xml
+                views.xml
+            core
+                app.properties
+                spring.xml
+            web
+                web-app.properties
+                web-dispatcher-spring.xml
+                web-menu.xml
+                web-permissions.xml
+                web-screens.xml
+                web-spring.xml
+        Data Stores
+            _MAIN_
+        Deployment
+            WAR Settings
+            UberJAR Settings
+    Data Model
+    Middleware
+        Services
+        Beans
+    Generic UI
+        Web menu
+        Main Message Pack
+            messages.properties
+        Screens
+        Themes
+    REST API
+----
+////
+
+. *Project*
++
+--
+* <<project_properties,Properties>> - 允许配置项目的基本设置。
+
+* *Build Script* - 包含两个主要项目脚本： {main_man_url}/build.gradle.html[build.gradle] （定义构建配置）和 `settings.gradle`（定义项目名称和模块组）。
+
+* <<modules,Modules>> - 显示所有项目模块。
+
+* *Data Stores* - 显示项目所连接的 {main_man_url}/data_store.html[数据存储] 列表。默认情况下，只有 `_MAIN_` 数据存储。
+
+* <<deployment,Deployment>> - 允许定义项目部署选项。
+--
+
+. <<data_model,Data model>> - 显示并管理项目的数据模型。
+
+. <<middleware,Middleware>> - 显示并管理中间件服务和托管 bean。
+
+. <<generic_ui,Generic UI>> - 包含与项目的用户界面相关的所有内容，例如界面、主题等。
+
+. *REST API* - 允许配置 {main_man_url}/rest_api_v2.html[REST API] 功能。
+
+. *Runs At...* - 允许在外部或嵌入的 Web 浏览器中打开运行中的应用程序。
+
+右键点击树元素能打开右键菜单，可以执行针对当前元素的特定操作。例如，使用 *Data Model* 项的右键菜单，可以从模型生成数据库脚本、从数据库生成模型以及创建新实体或枚举：
+
+image::ui/cuba_tree_context_menu.png[align="center"]

@@ -1,0 +1,50 @@
+:sourcesdir: ../../../../source
+
+[[data_model_view]]
+==== 使用视图
+
+要为实体创建新的 {main_man_url}/views.html[视图]，请在项目树中选择实体，然后在右键菜单中点击 *New > View*。
+
+image::features/data_model/create_view.png[align="center"]
+
+视图设计界面会被打开。它包含以下字段：
+
+* *Entity name* - 要创建视图的实体的名称。
+* *Name* - 新视图的名称。
+* *Extends* - 内置或自定义视图，新视图会扩展其属性。任何实体都有三种内置视图：
+** `_local` 包含实体的所有本地属性（不引用其它实体的属性），
+** `_minimal` 包含名称模式中列出的属性，
+** `_base` 包括所有本地非系统属性和由 `@NamePattern` 定义的属性（实际上是 `_minimal` +`_local`）。
+* *Configuration file* - 用于存储此视图的 {main_man_url}/views.xml.html[视图配置文件]。默认情况下，Studio 在  `global` 模块中生成一个 `views.xml` 文件。
+
+当前实体的完整属性列表显示在字段下方的树中。可以通过选中属性前面的复选框来选择要包含在视图中的属性。
+
+如果视图继承另一个视图，则会选中所有继承的属性，并禁用相对应的复选框。
+
+如果选择引用属性，则右侧面板中会显示以下属性：
+
+* *Entity* - 引用的实体名称。
+* *View* - 加载引用实体的可选视图。建议使用已命名视图而不是临时指定视图属性，因为这样可以更容易地维护复杂视图。此外，即使指定了视图名称，仍然可以通过选择属性树中的复选框来添加视图中未包含的属性。
+* *Fetch* - 用于引用属性的可选设置，指定如何从数据库中获取相关实体。有关详细信息，请参阅 {main_man_url}/views.html[文档]。
+
+单击 *OK* 关闭设计界面后，可以在实体下的项目树中找到新视图：
+
+image::features/data_model/create_view_2.png[align="center"]
+
+如果双击项目树中的视图项，Studio 将在代码编辑界面中打开 `views.xml` 并将光标定位在视图定义上。代码编辑界面底部有两个选项卡：*Text* 和 *Structure*。后者显示此配置文件中定义的视图列表。
+
+在 XML 中编辑视图定义时，使用 Ctrl+Space 自动完成属性名称：
+
+image::features/data_model/view_edit_1.png[align="center"]
+
+要留意高亮突出显示的属性，它们很有可能不存在：
+
+image::features/data_model/view_edit_2.png[align="center"]
+
+可以通过多种方式打开视图的图形设计界面：
+
+* 在项目树中选择视图，然后单击 *Edit View* 右键菜单项。
+
+* 将光标定位在配置文件代码中的视图元素上，按 Alt+Enter（Option+Enter），在弹出菜单中选择 *Edit view*，然后按 Enter 键。
+
+* 切换到配置文件代码编辑界面的 *Structure* 选项卡，选择视图并点击 *Edit* 按钮。

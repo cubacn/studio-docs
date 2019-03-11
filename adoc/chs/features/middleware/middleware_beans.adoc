@@ -1,0 +1,10 @@
+:sourcesdir: ../../../../source
+
+[[middleware_beans]]
+==== 创建托管 Bean
+
+Studio 在项目树的 *Middleware > Beans* 部分显示中间层（包括实体和事务监听器）的所有 {main_man_url}/managed_beans.html[托管 Bean]。
+
+image::features/middleware/studio_beans.png[align="center"]
+
+要创建托管 bean，请通过在项目树中选择一个包并在右键菜单中单击 *New > Java Class* 来创建 Java 类。然后将 `@Component` 注解添加到类中，如上例所示。为了最大限度地降低名称冲突的风险，特别是在使用应用程序组件时，请通过注解为 Bean 明确地指定名称。

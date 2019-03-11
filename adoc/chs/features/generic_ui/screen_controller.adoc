@@ -1,0 +1,63 @@
+:sourcesdir: ../../../../source
+
+[[screen_controller]]
+==== 使用界面控制器
+
+本节介绍 Studio 为 {main_man_url}/screen_controllers.html[界面控制器] 提供的功能。
+
+利用源码编辑器的边栏图标可以快速切换到相应的 XML 描述文件、定位到注入组件的 XML 定义以及其它导航功能。
+
+image::features/generic_ui/controller.png[align="center"]
+
+[[controller_injection]]
+依赖注入::
++
+--
+依赖注入是在界面控制器代码中获取对可视化组件和 API 端点(api endpoint)的引用的主要方式。当然，也可以编写所需类型的字段并手动进行注解。但是 Studio 提供了一个专用的窗口，这个窗口允许从列表中选择一个对象并自动创建合适的字段。按下 Alt+Insert（Cmd+N）键，在弹出的 *Generate* 菜单中选择 *Inject...*，就会打开这个窗口：
+
+image::features/generic_ui/controller_injection.png[align="center"]
+
+以下对象可以被注入到控制器中：
+
+* 界面 XML 描述中定义的可视化组件和数据组件，
+* 界面 API 接口，
+* 基础设施接口，
+* 中间层服务，
+* 配置接口。
+--
+
+[[controller_events]]
+事件处理::
++
+--
+通过创建事件处理程序，可以在界面生命周期的各个点执行代码并对用户操作做出响应。处理程序是一个用 `@Subscribe` 注解的控制器方法，使用事件作为输入参数。按下 Alt+Insert（Cmd+N）键，在弹出的 *Generate* 菜单中选择 *Subscribe to Event*，就可以在 Studio 中创建此类方法：
+
+image::features/generic_ui/subscribe_dialog.png[align="center"]
+
+每个事件在窗口右侧都提供了描述，这个描述是从事件的 Javadoc 中提取的。
+
+打开的窗口中提供以下事件：
+
+* 表示界面生命周期的控制器事件。
+
+* 可对按钮点击、表格选择、操作等做出响应的组件事件。
+
+* 表示此界面的外部框架的生命周期的框架事件(Frame Events)。
+
+* 允许对数据上下文更改做出响应，并在数据提交之前和之后执行代码的数据上下文事件。
+
+* 允许接收有关数据容器和实体状态更改通知的数据容器事件。
+--
+
+[[controller_delegates]]
+委托::
++
+--
+使用委托，可以为各种界面机制提供代码来代替其标准实现。例如，可以提供自己的函数来提交数据或选择表格行的图标。
+
+委托是具有特定签名的控制器方法，并使用 `@Install` 进行注解。按下 Alt+Insert（Cmd+N）键，在弹出的 *Generate* 菜单中选择 *Install Delegate*，就可以在 Studio 中创建此类方法：
+
+image::features/generic_ui/install_dialog.png[align="center"]
+
+每个事件都在窗口右边提供了描述，该描述是从框架的 Javadocs 中提取的。
+--

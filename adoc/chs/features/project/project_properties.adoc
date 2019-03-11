@@ -1,0 +1,66 @@
+:sourcesdir: ../../../../../source
+
+[[project_properties]]
+==== 项目属性编辑界面
+
+*Project Properties* 编辑界面允许对项目进行配置。可以从 *CUBA* 主菜单中打开它，也可以通过双击项目树的 *Project > Properties* 项来打开。
+
+主选项卡::
++
+--
+*Main* 选项卡显示基本设置。
+
+* *Repositories* 显示当前在项目中使用的仓库。Studio 扫描这些仓库以寻找可用的平台版本。使用该字段旁边的按钮配置对仓库的访问。有关详细信息，请参阅 {main_man_url}/access_to_repo.html[文档]。还可以在 `build.gradle` 中手动注册包含应用程序组件的其它仓库，并且仓库数量不受限制。
+
+* *Platform version* 选择平台的版本。如果选择了较新版本，则会根据需要决定是否会执行版本的自动迁移。
+
+* 在 *App components* 面板中，可以添要在项目中使用的由平台提供的或自定义的应用程序组件。
+
+* 如果需要更改应用程序服务的路径，请在 *Tomcat path* 字段中指定新路径。下一次执行 `gradlew deploy` 或 `gradlew start` 会将 Tomcat 安装到该位置。
+
+* *Tomcat ports* 分组允许为通过 {main_man_url}/fast_deployment.html[快速部署] 安装在 `deploy/tomcat` 文件夹中的 Tomcat 应用程序服务分配非标准端口。
+
+* 需要特别留意 *HTTP port* 字段，该字段 Tomcat 监听的 HTTP 连接端口，以及 `cuba.webPort` 、`cuba.webAppUrl` 、 `cuba.restApiUrl` 和 `cuba.connectionUrlList` 应用程序属性。
+
+* 在 *AJP port* 字段中，可以设置 AJP 连接器的端口。
+
+* 在 *Shutdown port* 字段中，可以设置 Tomcat 监听的 SHUTDOWN 命令端口。
+
+* 在 *Debug port* 字段中，可以设置 Tomcat 监听的 Java 调试器连接端口。如果更改了此端口，还应在 IDE 的调试配置中进行同步更改。
+
+* *Available locales* 字段允许设置应用程序可用的 {main_man_url}/localization.html[本地化语言]。单击该字段旁边的按钮打开语言环境编辑界面。位于编辑界面窗口中的 *Locale select visible* 复选框控制 {main_man_url}/app_properties_reference.html#cuba.localeSelectVisible[cuba.localeSelectVisible] 应用程序属性的值。
+编辑界面还可以为 {main_man_url}/datatype.html[解析和格式化数据]定义新的或覆盖已有的格式化字符串。
+
+* *Groovy support* 复选框用于在应用程序中启用 Groovy 代码支持：比如，在界面控制器类中。
+--
+
+数据存储选项卡::
++
+--
+*Data Stores* 选项卡显示项目的数据库连接。
+
+* 编辑界面的上半部分包含主数据存储的设置。
+
+** 可以在 *Database type* 字段中选择数据库服务的类型。下面的字段允许更改数据库 URL，并指定用户名、密码和可选的连接参数。
+
+** 连接参数的格式取决于所选的 DBMS。字符串中应在数据库名称和参数之间包含分隔符。例如，要指定 Microsoft SQL Server 2008+ 实例名称，请在字段中使用以下字符串：
++
+[source]
+----
+;instanceName=myinstance
+----
+
+** 如果启用了 *Custom database URL* 复选框，就可以指定自定义的数据库连接 URL。在这种情况下应提供 *Host* 和 *Database* 名称，因为它们在 `build.gradle` 中被单独使用。
+
+** 对于 HSQLDB，Studio 本身提供数据库服务，并将数据库文件存储在 `build/hsqldb` 目录中。
+
+* *Additional data stores* 面板包含项目中注册的其它数据存储列表。创建或编辑其它数据存储时，会显示 *Data Store* 对话框。对话框上包含以下字段：
+
+** *Data store name* - 数据存储的名称。名称应该只包含字母、数字和下划线，并且应该不同于项目名称。
+
+** *Data store type* - 数据存储的类型：`RdbmsStore` 或 `Custom`，有关详细信息请参阅文档。对于 `RdbmsStore`，应该设置如下字段。
+
+** *DataSource JNDI name* - Studio 基于数据存储的名称自动进行设置。
+
+** *Database type*、*URL* 等  - 数据库连接参数。
+--

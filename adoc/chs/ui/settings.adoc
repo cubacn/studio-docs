@@ -1,0 +1,60 @@
+:sourcesdir: ../../../source
+
+[[settings]]
+=== CUBA 设置
+
+如果单击 *CUBA > Settings* 主菜单项，将看到使用键字 *cuba* 过滤后的 IDE 设置窗口。在 *Languages & Frameworks* 下找到 *CUBA* 部分。
+
+*CUBA* 部分包含对所有在 Studio 实例中打开的项目都通用的设置。
+
+* *Ask before saving DB scripts with DROP statements* - 建议不要自动执行包含 DROP 语句的更新脚本。
+
+* *Show warning if application server port is in use* - 打开项目且 Tomcat 端口被占用时显示警告。
+
+* *Use embedded browser to open application* - 如果选中该选项，则双击 *Runs At* 项目树中的应用程序 URL 时将使用内嵌 Web 浏览器打开项目地址。
+
+* *Visual designer theme* - 可视化设计工具的主题。使用 `Autodetect` 将根据 IDE 主题自动设置。
+
+* *Visual designer zoom* - 可视化设计工具的默认缩放。在具体的设计界面中可以通过右键菜单进行调整。
+
+* *Old Studio integration enabled* - 如果要将此 IDE 实例与旧的 Studio SE 或 Studio Browser Edition 集成，选中此复选框。这样就可以在新的 IDE 中打开旧 Studio 的项目（这样不需要单独安装其它版本的 IDEA 了）。
+
+* *Listening port* - 用于集成旧 Studio 的端口。确保这个值与旧 Studio 的 *IDE Port* 字段中指定的值相同。
+
+* *Enable transaction block folding*  如果选中，Java 代码编辑器将折叠用于事务控制的旧式 `try-finally` 块。
+
+下一级的 *Project settings* 部分包含当前打开的项目的设置。所有非默认值都存储在项目根目录的 `studio-intellij.xml` 文件中，可以将其添加到版本控制系统，以便在团队中的所有开发人员之间共享项目设置。
+
+* *Check compatibility between data model and database scheme* - 在启动应用程序服务时，如果数据模型的当前状态与数据库架构不一致时显示警告信息。
+
+* *Generate DROP statements in separate update scripts* - 为删除实体、属性或更改属性的数据类型的操作生成更安全的更新脚本。这些脚本分为两部分：在第一部分，列或表被重命名为 `*__UNUSED`，在第二部分对这些对象执行实际的删除操作。
+
+* *Use NVARCHAR when generating scripts for MS SQL Server* -如果启用此选项，对于 Microsoft SQL Server 数据库，使用 NVARCHAR 列类型存储所有 String 属性。
+
+* *Generate script name in format* - 指定 `yyMMddHHmm` 可以将当前时间添加到生成的数据库更新脚本的名称中，这有助于确保在团队工作中脚本的正确顺序。
+
+* *Do not delete columns started with* - 此字段允许为表列指定一个前缀，Studio 将不跟踪具有此前缀的列。一般情况下，如果向映射到实体的表添加了一列，而不将列映射到一个实体属性，Studio 将生成删除此列的更新脚本。如果想避免丢失表中的列，可以在 *Database Scripts* 对话框中不包含此脚本，这个脚本也不会再次生成。或者通过 *Do not delete columns started with* 字段为此类列设置一个公共前缀，并相应地命名列。例如，在字段中输入 `NOT_MAPPED_` 并将列命名为 `NOT_MAPPED_CODE`。
+
+* *Column length for enums with ID of String type* - 此字段允许设置数据库列的长度，该列映射到具有 String 类型标识符的枚举类型的属性。例如，如果始终使用只由一个字符组成的短标识符，则可以将此字段设置为 1，以节省数据库空间。
+
+* *Make plural forms* - 根据英语语法构造名词的复数形式。
+
+* *Repeat entity parent package for screens* - 当 Studio 根据模板生成通用 UI 界面时，如果实体位于比 entity 包更深的一个包中，Studio 将为界面添加此包名。例如，如果 `Customer` 实体位于 `com.company.sample.entity.crm` 中，则其界面的默认包将是 `com.company.sample.web.crm.customer`。
+
+* *Use underscores in generated package names* - 如果选中，包名称将包含以下划线分隔的单词，这些单词是根据以驼峰命名法命名的相应实体名称生成。例如，当为 `com.company.sample.CustomerGrade` 实体生成界面时，界面的包将是 `com.company.sample.customer_grade`。如果该选项关闭，则包名称为 `com.company.sample.customergrade`。
+
+* *Default parent package name for screens* - 当根据与实体无关的模板生成通用 UI 时，可以在这里指定使用的默认包名替代"screens"(默认)。如果模板关联了实体，还会在包之前添加实体名称。例如，如果将此字段设置为"ui"并创建一个空白界面，则包的默认值为 `com.company.sample.web.ui`。
+
+* *Default access modifier* - 设置 Studio 在生成实体字段时使用的默认字段修饰符。
+
+* *Generate entity name with underscore symbol* - 如果选择，实体名称将具有 `namespace_ClassName` 格式，例如 `sales_Customer`。否则它将是 `namespace$ClassName`。
+
+* *Show module prefix migration dialog* - 在项目打开时，显示模块定义迁移的弹窗，其中会建议将构建脚本中的模块定义改为新格式 - 用变量定义模块名称前缀。
+
+* *Instant hot deploy* - 此复选框允许关闭热部署。如果启用了热部署，则 Studio 会在应用或保存对视图、界面、消息或主菜单的更改时动态更新已部署的 Web 应用程序的 UI。
+
+* *Hot Deploy Settings* - 打开对话框来自定义热部署目录。例如，可能希望将 Web 门户的 HTML 文件和 JavaScript 文件所在的文件夹添加为部署目录。当更改这些文件时，Studio 会将它们复制到 Tomcat 中的各自对应的目录。因此，只需重新加载 Web 门户页面即可查看更改。
+
+* *Fold messages in* - 允许控制界面描述和界面控制器中的消息折叠。选中的话，消息键将替换为相应消息包中的实际值。
+
+* *Message folding locale* - 折叠(folding)消息时要使用的本地化消息文件。

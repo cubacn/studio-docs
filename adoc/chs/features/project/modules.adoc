@@ -1,0 +1,8 @@
+:sourcesdir: ../../../../../source
+
+[[modules]]
+==== 模块管理
+
+Studio 允许创建、编辑和删除项目的可选模块： *core* 、 *gui* 、 *web* 、 *web-toolkit* 、 *portal* 和 *front*。可以使用 *CUBA > Advanced > Manage Modules* 主菜单或从项目树的 *Project > Modules* 项的右键菜单中执行此操作。
+
+项目树的 *Modules* 部分显示项目中当前使用的模块。创建新项目时，默认包含 *global*  、 *core* 和 *web*。对于每个模块，Studio 也显示位于此模块中的配置文件。

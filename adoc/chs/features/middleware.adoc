@@ -1,0 +1,10 @@
+:sourcesdir: ../../../../source
+
+[[middleware]]
+=== 中间层
+
+<<project_tree,项目树>>集中在一个地方显示所有中间层服务和托管 bean。在下面的章节中，我们将介绍如何创建新服务和 bean。
+
+include::middleware/middleware_services.adoc[]
+
+include::middleware/middleware_beans.adoc[]

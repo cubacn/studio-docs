@@ -1,0 +1,20 @@
+:sourcesdir: ../../source
+
+[[release_notes]]
+== Release Notes
+
+
+版本 7::
++
+--
+. 如果你的项目基于 CUBA 6.10 ，并使用了 BPM 、图表 、全文搜索或报表等高级扩展组件，则需要在 `~/.gradle/gradle.properties` 文件中设置 premium 仓库的访问凭据，如 {main_man_url}/access_to_repo.html#access_to_premium_repo[开发人员手册]所述。 Studio不会将凭据传递给Gradle。
+
+. 所有解决了的问题::
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%207.3.*%20Fixed%20in%20builds:%207.4.*[Studio 7.3-7.4 解决的问题\]]
+
+** https://youtrack.cuba-platform.com/issues/STUDIO?q=Milestone:%20%7BRelease%207%7D%20State:%20Fixed,%20Verified%20Fix%20versions:%207.2%20Affected%20versions:%20-SNAPSHOT%20sort%20by:%20created%20asc[Studio 7.2 解决的问题]
+
+** https://youtrack.cuba-platform.com/issues/STUDIO?q=Milestone:%20%7BRelease%207%7D%20State:%20Fixed,%20Verified%20Fix%20versions:%207.0%20Fix%20versions:%207.1%20Affected%20versions:%20-SNAPSHOT%20sort%20by:%20created%20asc[Studio 7.0-7.1 解决的问题]
+--
+
+:sectnums:

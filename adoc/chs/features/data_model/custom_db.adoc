@@ -1,0 +1,39 @@
+:sourcesdir: ../../../../source
+
+[[custom_db]]
+==== 集成自定义数据库
+
+如 {main_man_url}/arbitrary_dbms.html[文档] 中所述，框架允许使用 EclipseLink ORM 支持的任何 DBMS 作为项目数据库。Studio 可以帮助创建此类集成所需的文件。
+
+在菜单中选择 *CUBA > Advanced > Define Custom Database*。
+
+在打开的窗口中可以设置新自定义数据库的属性。根据这些属性，Studio 会针对数据库生成设计时和运行时的支撑代码。
+
+* *DB type id* - 用于 `cuba.dbmsType` 应用程序属性的数据库类型标识符。
+* *DB type name* - 要在 Studio 中显示的数据库类型的用户友好名称。
+
+
+单击 *OK* 后，Studio 会在 `com.haulmont.cuba.core.sys.persistence` 中生成 Java 类，并在项目的 `com.haulmont.studio.db.{db_id}` 包中生成 Groovy 类。自动生成的示例实现适用于 Microsoft SQLServer 数据库，需要适当地对其进行一些修改。
+
+首先，修改 `com.haulmont.studio.db.{db_id}.{db_id}DbProperties` 类。当此类适配了新的数据库时，将能够在 Studio 中将项目切换到此数据库。重新打开项目在数据库类型下拉列表中查看新数据库。
+
+要在运行时连接到新数据库，请修改 `com.haulmont.cuba.core.sys.persistence` 包的 `{db_id}DbmsFeatures` 和 `{db_id}DbTypeConverter` 类。`{db_id}SequenceSupport` 类仅用于生成整数标识符和唯一编号。
+
+最后，修改 `com.haulmont.studio.db.{db_id}.{db_id}DdlGenerator` 类，以便在需要时可以由 Studio 正确生成 *init* 和 *update* 数据库脚本。如果不需要为此数据库生成 DDL 脚本，可跳过此步骤。
+
+如果将自定义数据库用作主数据存储，则在生成数据库脚本时，Studio 将为所有应用程序组件（包括 CUBA）创建 *init* 脚本。这些脚本不包含一些必须的初始化数据，因此必须将以下内容添加到项目的 *Init data* 脚本中（`30.create-db.sql`）：
+
+[source, sql]
+----
+insert into SEC_GROUP (ID, CREATE_TS, VERSION, NAME, PARENT_ID)
+values ('0fa2b1a5-1d68-4d69-9fbd-dff348347f93', current_timestamp, 0, 'Company', null)^
+
+insert into SEC_USER (ID, CREATE_TS, VERSION, LOGIN, LOGIN_LC, PASSWORD, NAME, GROUP_ID, ACTIVE)
+values ('60885987-1b61-4247-94c7-dff348347f93', current_timestamp, 0, 'admin', 'admin',
+'cc2229d1b8a052423d9e1c9ef0113b850086586a',
+'Administrator', '0fa2b1a5-1d68-4d69-9fbd-dff348347f93', 1)^
+
+insert into SEC_USER (ID, CREATE_TS, VERSION, LOGIN, LOGIN_LC, PASSWORD, NAME, GROUP_ID, ACTIVE)
+values ('a405db59-e674-4f63-8afe-269dda788fe8', current_timestamp, 0, 'anonymous', 'anonymous', null,
+'Anonymous', '0fa2b1a5-1d68-4d69-9fbd-dff348347f93', 1)^
+----

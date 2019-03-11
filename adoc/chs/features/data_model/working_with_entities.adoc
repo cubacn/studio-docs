@@ -1,0 +1,81 @@
+:sourcesdir: ../../../../source
+
+[[data_model_entities]]
+==== 使用实体
+
+[[data_model_entity]]
+创建新实体::
++
+--
+. 在项目树中选择 *Data Model* 部分或它下面的包，然后从右键菜单中选择 *New > Entity*。
+
+. 出现 *New CUBA Entity* 对话框。在 *Entity name* 字段中输入实体类的名称，选择实体及其 ID 的类型。
+
+. Studio 将创建实体类，根据实体类型的不同在 `persistence.xml` 或 `metadata.xml` 中进行注册。创建的类会在源代码编辑界面中打开。编辑界面底部会显示三个选项卡：
+
+** *Text* 包含源码。
+
+** *Designer* 显示实体设计界面，可以使用图形界面配置实体及其属性，而不用编写 Java 代码。
+
+** *DDL Preview* 包含相应表及其参考约束的只读 DDL 代码。
+--
+
+[[data_model_attribute]]
+创建实体属性::
++
+--
+有多种方法可以向实体添加属性。
+
+* 使用实体设计器的图形化界面：切换到 *Designer* 选项卡，单击 *Attributes* 表下方的 *New* 并填写 *New Attribute* 窗口中的必填字段。
++
+*Name* 字段旁边的按钮用于直接设置属性的用户友好名称。友好名称存储在 `messages.properties` 文件中，UI 组件默认使用这个文件来获取实体属性名称。如果为应用程序定义了多种语言，可以为所有语言指定本地化名称。
++
+image::features/data_model/attribute_l10n.png[align="center"]
+
+* 使用从源码打开的独立窗口。在源码中将光标定位在最后一个字段下方，然后按下 Alt+Insert (Cmd+N)。在 *Generate* 菜单中，选择 *Add Attribute*。Studio 将显示 *New Attribute* 窗口，和从图形界面打开的一样。
++
+image::features/data_model/new_attribute_2.png[align="center"]
+
+* 还可以手动编写属性字段，生成 getter 和 setter 方法，然后在 *Generate* 菜单中选择  *JPA Annotations*，这样可以使用默认参数添加 JPA 注解。
+
+Studio 可以帮助将新增的属性添加到为此实体创建的 UI 界面。将光标定位到包含该属性的行，然后按 Alt+Enter（Option + Enter）或单击灯泡图标并选择 *Add entity attribute to screens*：
+
+image::features/data_model/add_attribute_to_screens.png[align="center"]
+
+按 Enter 键，Studio 将打开一个对话框，其中包含使用了被编辑实体的界面列表。可以选择一个界面，Studio 会将该属性添加到此界面的相应 UI 组件中，例如添加到表格或表单中。
+--
+
+[[data_model_name_pattern]]
+创建实例名称::
++
+--
+可以用作另一个实体的引用属性的实体（例如 `Customer` 可以是 `Order` 的属性）需要一个模式(pattern)来生成实例的有意义的名称。此模式(pattern)由实体类上的 {main_man_url}/entity_class_annotations.html#namePattern_annotation[@NamePattern] 注解定义。将光标定位在类代码中的任何位置，即可在 Studio 中创建实体的名称模式，按 Alt+Enter（Option+Enter）并选择 *Add name pattern*（仅当实体没有 `@NamePattern` 注解时才显示此项）：
+
+image::features/data_model/create_name_pattern.png[align="center"]
+
+按 Enter 键，Studio 将显示实体的所有属性列表。选择一个或多个属性，然后按 Enter 键。Studio 将在实体类上生成 `@NamePattern`。
+--
+
+[[data_model_messages]]
+为新属性创建消息::
++
+--
+手动创建新的实体属性时，其名称会高亮突出显示，以提醒在相应的消息包中创建用户友好的属性名称：
+
+image::features/data_model/create_message_1.png[align="center"]
+
+在突出显示的属性上点击 Alt+Enter（Option+Enter），然后选择 *Create message in the message bundle*：
+
+image::features/data_model/create_message.png[align="center"]
+--
+
+[[remove_entity]]
+移除实体::
++
+--
+要移除实体，使用 *Safe delete* 选项查找并清理对实体的引用：
+
+image::features/data_model/remove_entity.png[align="center"]
+
+对实体的一些引用会被自动删除，比如在 `persistence.xml` 和 `metadata.xml` 文件中对实体的引用。如果存在对实体的引用，将会弹出一个对话框显示这些引用。 点击对话框上的 *View Usages* 按钮, 可在 *Find* 工具窗口中查看这些引用，这时可以根据情况点击 *Cancel* 或 *Do Refactor* 按钮。
+--

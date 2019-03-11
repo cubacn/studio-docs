@@ -1,0 +1,36 @@
+:sourcesdir: ../../../source
+
+[[create_project]]
+=== 创建一个新项目
+
+CUBA Studio 提供了一种从零开始创建新 CUBA 项目的简单方法。只需使用 *New Project* 向导，然后按照以下步骤操作：
+
+. 在 *Welcome to CUBA Studio* 窗口中，单击 *Create New Project*.。
+
+. 选择 *CUBA Project*.
+
+. 在 *Project SDK* 字段，选择对应环境中设置 `JAVA_HOME` 的 JDK。如果看到 `<No SDK>` 这样的值，点击 *New* 然后选择 JDK 安装的目录，比如在 Windows 是 `++C:\Java\jdk8u202-b08++`，macOS 是 `/Library/Java/JavaVirtualMachines/jdk8u202-b08/Contents/Home`。
+
+. 选择默认仓库配置，或为项目 {main_man_url}/access_to_repo.html[自定义] 仓库配置，然后单击 *Next*。
+
+. 在 *Project name* 字段中指定新项目的名称。名称应仅包含拉丁字母、数字和下划线。在此阶段需要仔细考虑项目名称，因为后续更改项目名将需要复杂的手工操作。
+
+. 以下字段将自动填充：
++
+--
+* *Project location* – 新项目的路径。可以在字段中输入另一个目录或单击该字段旁边的省略号按钮来选择另一个目录。
+
+* *Project namespace* – 命名空间将用作实体名称和数据库表的前缀。命名空间只能由拉丁字母组成，并且应尽可能短。
+
+* *Root package* − Java 类的根（或基础）包。随后可以调整根包路径，但项目创建时生成的类不会自动更改。
+
+* *Platform version* – 项目使用的平台版本。如果没有特别的需求，使用最新的版本即可，比如，不带 `BETA` 或者 `SNAPSHOT` 后缀的版本。在项目导入时会自动从仓库下载平台的工件。
+--
+
+. 单击 *Finish*。空项目将在指定目录中创建，之后 Studio 会自动通过 Gradle 文件开始构建项目信息并为项目建立索引。
+
+. 项目同步和建立索引过程完成后，将在 *Project* 工具窗口中看到 CUBA 项目树。
+
+. 打开 *Gradle* 工具窗口，默认固定在右边栏。点击“扳手”图标（*Gradle Settings*）然后在 *Gradle JVM* 字段选择 `Use JAVA_HOME`。如果在下拉列表中没有看到该选项，请确保按照 CUBA 开发者手册中 {main_man_url}/setup.html[安装] 部分配置了正确的开发环境。点击 *OK*。
+
+. 现在可以开始项目的工作了。

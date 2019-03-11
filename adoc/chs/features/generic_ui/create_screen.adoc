@@ -1,0 +1,29 @@
+:sourcesdir: ../../../../source
+
+[[create_screen]]
+==== 创建和移除界面
+
+要创建新的 Generic UI 界面，请在项目树中选择 *Generic UI*，然后在右键菜单中选择 *New > Screen*。如果要为实体创建 CRUD 界面，请在项目树中选择此实体或其中一个视图，然后在右键菜单中点击 *New > Screen* ：
+
+image::features/generic_ui/create_screen.png[align="center"]
+
+Studio 将显示可用模板的列表。该列表分为两部分：*Screen Templates* 和 *Legacy Screen Templates*。
+前者包含框架版本 7 以上可用于新界面 API 的模板，而后者包含也可用于版本 6 的界面模板。
+
+image::features/generic_ui/create_screen_2.png[align="center"]
+
+如果为在项目树中选中的实体或视图创建界面，则 *Entity* 和 *Entity view* 字段会自动填充：
+
+image::features/generic_ui/create_screen_3.png[align="center"]
+
+*Advanced* 部分允许修改自动生成的界面描述和控制器名称以及界面 ID。当某个实体有多个界面时，这很有用。
+
+单击 *Finish* 时，将创建并打开界面 XML 描述和 Java 控制器文件。对于没有使用 `UiDescriptor` 和/或 `@UiController` 注解的旧版界面，其界面描述被注册在 `web-screens.xml` 文件中。
+
+移除界面文件时，使用 *Safe delete* 选项查找并清理对这个界面的引用：
+
+image::features/generic_ui/safe_delete_screen_1.png[align="center"]
+
+对界面的一些引用会被自动删除，比如在 `web-menu.xml` 和 `web-screens.xml` 文件中对界面的引用。如果存在对界面的引用，将会弹出一个对话框显示这些引用。 点击对话框上的 *View Usages* 按钮, 可在 *Find* 工具窗口中查看这些引用，这时可以根据情况点击 *Cancel* 或 *Do Refactor* 按钮：
+
+image::features/generic_ui/safe_delete_screen_2.png[align="center"]

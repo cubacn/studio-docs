@@ -1,0 +1,22 @@
+:sourcesdir: ../../source
+
+[[features]]
+== Studio 功能
+
+这部分文档描述了所有能帮助开发 CUBA 应用程序的 Studio 功能。主要是根据能在<<project_tree,项目树>>中看到的项目元素组织相关信息。
+
+有些 Studio 的功能会跟 Intellij 终极版或者第三方插件的功能冲突。比如，为了避免边栏中图标的冲突，可以用下面的步骤禁用终极版中冲突的图标：
+
+* 在 IDEA 菜单中选择 *Settings > Editor > General > Gutter Icons*，
+
+* 反选 *Injection points* 和 *Producers for Disposer methods* 选项，
+
+* 应用更改。
+
+include::features/project.adoc[]
+
+include::features/data_model.adoc[]
+
+include::features/middleware.adoc[]
+
+include::features/generic_ui.adoc[]

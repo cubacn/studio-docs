@@ -1,0 +1,51 @@
+:sourcesdir: ../../../../source
+
+[[database_migration]]
+==== 数据库迁移
+
+Studio 能够创建 DDL 脚本，以使数据库架构与项目的数据模型保持同步。生成的脚本可以从 Studio 直接执行，也可以由 {main_man_url}/db_update_gradle.html[Gradle 任务] 执行，还可以在应用程序本身 {main_man_url}/db_update_server.html[启动时] 执行。
+
+要生成 DDL 脚本，请在主菜单中单击 *CUBA > Generate Database Scripts*，或在项目树中选择 *Data Model*，然后在右键菜单中单击 *Generate Database Scripts*。
+
+Studio 将打开 *Database Scripts* 窗口，窗口上有以下选项卡：
+
+Updates::
++
+--
+*Updates* 选项卡上显示出用来将数据库更新为数据模型当前状态的脚本。更新脚本保存在 `modules/core/db/update` 目录。这些脚本具有自动生成的名称，通过前缀定义执行顺序。包含 DROP 语句的脚本以红色突出显示。
+
+可以通过单击 image:plus_button.png[Create] 按钮添加任意脚本，添加的脚本后续将与自动生成的脚本一起保存并执行。
+
+单击 image:remove_button.png[Remove] 按钮可以编辑或完全删除新生成的脚本。
+
+如果单击 image:exclude_button.png[Exclude selected]（排除），这时会两个选项：
+
+* 将脚本移动到手动执行的脚本目录：`modules/core/db/update-manually`。然后当运行 *Update database* 时，脚本不会自动被执行，但可以在需要时手动运行它。此选项对于用于删除先前重命名为 `*__UNUSED` 的表或列的脚本非常有用。
+* 排除脚本：排除的脚本不会保存到 `modules/core/db/update` 目录中，而是记录在项目文件夹中的 `studio-intellij.xml` 文件中。再次生成脚本时，Studio 将忽略与排除脚本相对应的更改。这样就允许数据库架构和实体模型之间存在差异。
++
+例如，可能希望在对应项目实体的一个表中添加数据库字段，但不将其映射到实体属性。当 Studio 生成了从数据库中删除该字段的脚本时，只需将其排除，Studio 将不再生成同样的脚本。
+--
+
+Init Tables::
++
+--
+执行 *Create Database* 时，*Init Tables* 脚本会在 *Init constraints* 和 *Init data* 脚本之前执行，并创建所有的表。开发人员可以编辑脚本，但要需要保留分隔表的注释。该脚本保存在 `10.create-db.sql` 文件中。
+--
+
+Init Constraints::
++
+--
+*Init Constraints* 脚本在 *Init tables* 脚本之后执行，创建完整性约束。开发人员可以编辑该脚本，但需要保留分隔表的注释。该脚本保存在 `20.create-db.sql` 文件中。
+--
+
+Init Data::
++
+--
+*Init Data* 脚本允许插入额外的数据或数据模型中不存在的数据结构信息。在初始化结束时执行。该脚本保存在 `30.create-db.sql` 文件中。
+--
+
+如果项目包含应用程序组件（扩展），但是此组件不为当前数据库提供 DDL 脚本，Studio 会为组件生成脚本，并在 *Init {component} tables* 和 *Init {component} constraints* 选项卡中显示。脚本分别保存在 `01.{component}-create-db.sql` 和 `02.{component}-create-db.sql` 文件中。
+
+单击 *Save and close* 以保存所有生成的脚本。可以在 *Project > Data Stores > Main Data Store* 项目树部分中找到脚本。
+
+要运行更新脚本，先停止应用程序服务器（如果在运行），然后从 *CUBA* 主菜单执行 *Update Database*。如果要使用初始化脚本从头开始重新创建数据库，请执行 *Create Database*。

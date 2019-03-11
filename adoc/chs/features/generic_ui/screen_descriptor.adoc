@@ -1,0 +1,60 @@
+:sourcesdir: ../../../../source
+
+[[screen_descriptor]]
+==== 使用界面描述
+
+{main_man_url}/screen_descriptors.html[界面描述] 编辑器底部包含两个选项卡：*Text* 和 *Designer*。在 *Text* 选项卡上，可以直接编辑 XML，而 *Designer* 选项卡包含一个界面布局的可视化编辑器。
+
+image::features/generic_ui/xml_descriptor.png[align="center"]
+
+可以使用代码编辑器边栏上的标记从界面描述切换到相应的界面控制器，或者在项目树中选择界面描述，然后单击右键菜单中的 *Go to controller*。
+
+Studio 会检查界面布局是否存在错误和不一致，并且检查内部和外部引用。出现下列情况，会用警告或高亮显示 XML 元素的方式进行提醒：
+
+* 由于 XML 错误，无法组装界面布局。
+* 组件属性路径和名称与应用程序数据模型不对应。
+* 组件大小冲突： `width` 、 `height` 和 `expand` 属性值的冲突。
+* `dataContainer` 和 `dataLoader` 属性没有引用任何现有的数据容器或数据加载器。
+* `form` 中的字段没有显式定义 `property` XML 属性：此时，`id` 将被隐式地用作 `property`。
+* `form` 元素语义错误：字段重复或位于 `column` 元素之外。
+* `gridLayout` 中的列数与指定的数字不匹配。
+* 在扩展界面中出现重复的元素属性，比如父界面和扩展界面中同时定义了完全一样的属性时。
+* 扩展界面中的元素的命名与父界面中不同，或者放置位置不正确。
+* `messagesPack` 属性指定的值不是一个有效的包，这个包要至少包含一个 `messages_xx.properties` 文件。
+* 过时的 XSD 引用。
+* `id` 值在界面内不是唯一的。
+
+可以在 *Settings* 窗口中配置检查器（*CUBA > Settings > Editor > Inspections*）。
+
+Studio 也能加速界面组件的开发。使用 Alt+Insert (Cmd+N) 快捷键打开特定 UI 和数据组件的相关功能。比如，需要在 {main_man_url}/gui_Form.html[Form] 组件添加一个新字段，可以将光标移动到 `form` 元素内然后按照下面的方式之一添加字段：
+
+* 按下 Alt+Insert (Cmd+N)，选择 *Add field*，然后选择属性和字段标签，
++
+image::features/generic_ui/gui_Form_add.png[align="center"]
+
+* 输入 `field` 然后按下 TAB 键，然后选择属性和字段标签。
++
+image::features/generic_ui/gui_Form_add_tab.png[align="center"]
+
+*Designer* 选项卡显示可视化设计器，允许以 WYSIWYG 方式开发界面布局和设置 UI 组件属性。
+
+image::features/generic_ui/xml_descriptor_2.png[align="center"]
+
+设计界面工作区分为四个面板：
+
+* *Canvas* 是工作区，可以在其中按所需的布局排列组件。可以使用控制工具调整组件的大小和对齐：
+** 水平扩展，
+** 垂直扩展，
+** 垂直/水平对齐组件。
+
+* *Palette* 面板显示可用的界面组件集合：
+** 容器；
+** 组件；
+** 数据组件：容器和加载器;
+** 非可视化组件：操作、对话框模式设置、计时器。
+
+要将组件添加到布局，请将其从组件面板(palette)拖放到画布或组件树(hierarchy)面板上。
+
+* *Hierarchy* 面板显示添加到布局的组件树。可以使用拖放重新排列树的元素，因为有时这比在画布(Canvas)上执行相同操作更方便。可以使用右键菜单来删除、复制、剪切或粘贴组件树中的元素。
+
+* *Properties* 面板显示可视化组件的属性。

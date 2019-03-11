@@ -1,0 +1,102 @@
+:sourcesdir: ../../source
+
+[[installation]]
+== 安装
+
+在安装 CUBA Studio 之前，确保系统满足 CUBA 开发人员手册 {main_man_url}/setup.html[安装] 部分中说明的要求。
+
+有两种不同的安装 CUBA Studio 的形式：作为操作系统上独立的 IDE 安装或者作为已经安装的 IntelliJ IDEA 的插件安装。独立的 Studio IDE 是 IntelliJ IDEA 社区版的特殊版本，包含了 CUBA 插件。如果之前没有用过 IntelliJ IDEA，推荐使用独立 IDE 版本。
+
+IDE 版本对应于使用的 IntelliJ IDEA 的版本，比如，{idea-version}。CUBA 插件有自己独立的版本号，从 {plugin-version} 开始。
+
+可以从 https://www.cuba-platform.com/download 下载适用于 Windows、macOS 和 Linux 的独立 IDE 的安装程序。插件可以通过 IntelliJ 插件仓库下载（参考<<install_plugin,下面>>）。
+
+[[install_windows]]
+在 Windows 上安装::
++
+--
+. 下载 `cuba-studio-VERSION.exe` 安装程序。
+
+. 运行安装程序并按照其说明操作：选择安装位置、启动器类型、文件夹名称，然后完成安装。
+
+. 启动已安装的应用程序，参考<<first_launch,这里>>了解更多信息。
+--
+
+[[install_macos]]
+在 macOS 上安装::
++
+--
+. 下载 `cuba-studio-VERSION.dmg` 安装程序。
+
+. 双击安装程序，然后将 `CUBA Studio.app` 拖放到 `Applications` 文件夹。如果有以前版本的 Studio 并且想保留它，请在出现的对话框中选择 _Keep Both_。
+
+. 启动 CUBA Studio 应用程序，参阅<<first_launch,这里>>了解更多信息。
+--
+
+[[install_linux]]
+在 Linux 上安装::
++
+--
+. 安装所需的依赖：
++
+----
+$ sudo apt-get install libgconf-2-4
+----
+
+. 下载 `cuba-studio-VERSION.tar.gz` 存档。
+
+. 将存档移动到适当的文件夹，例如 `~/lib` 并将其解压：
++
+----
+$ tar -xvf cuba-studio-VERSION.tar.gz
+----
+
+. 转到 `bin` 目录并启动应用程序：
++
+----
+$ cd ~/lib/cuba-studio-VERSION/bin
+$ ./cuba-studio.sh
+----
+--
+
+[[first_launch]]
+首次启动 IDE::
++
+--
+当第一次启动独立的 CUBA Studio IDE，Studio 会询问一些问题：
+
+* 在第一个 *Complete Installation* 对话框中，选择 *Do not import settings* 然后点击 *OK*。
+
+* 在下一个 *Customize CUBA Studio* 对话框中，可以点击 *Skip Remaining and Set Defaults* 以使用默认设置。因为之后随时可以自定义这些环境。
+
+* 参阅 <<getting_started>> 部分了解如何启动一个新项目或者打开已有项目。
+--
+
+[[install_plugin]]
+IntelliJ IDEA 插件安装::
++
+--
+. 启动 IntelliJ IDEA {idea-version} 或者更新版本。
+
+. 打开 *Plugins* 对话框。
+
+. 点击“齿轮”图标并选择 *Manage Plugin Repositories*。
+
+. 点击 *Add* 并在 *Repository URL* 字段输入以下内容：
++
+----
+https://plugins.jetbrains.com/plugins/haulmont/list
+----
+
+. 添加完仓库之后，切换到 *Marketplace* 标签页。
+
+. 在搜索框输入以下内容：
++
+----
+repository:"https://plugins.jetbrains.com/plugins/haulmont/list"
+----
+
+. 能在搜索结果中看到 CUBA 插件。
+
+. 点击 *Install* ，之后按照 IDE 的步骤继续安装。
+--

@@ -1,0 +1,20 @@
+:sourcesdir: ../../../../source
+
+[[generic_ui_themes]]
+==== 使用主题
+
+Studio 可以帮助在项目中创建 {main_man_url}/gui_themes.html[主题] 扩展和自定义主题。
+
+image::features/generic_ui/theme_extension.png[align="center"]
+
+创建主题扩展或自定义主题时，会创建特定目录结构并修改 `build.gradle` 文件。
+
+创建的主题会显示在项目树的 *Themes* 部分中。
+
+image::features/generic_ui/halo_ext.png[align="center"]
+
+扩展或创建主题后，可以在 SCSS 文件或可视化编辑器中手动修改其变量：
+在新主题的右键菜单中，选择 *Open Variables File*。此文件也可以通过 CUBA 主菜单：选择 *Advanced > Manage themes > Edit theme variables*。
+
+image::features/generic_ui/theme_variables.png[align="center"]
+

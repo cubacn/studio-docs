@@ -1,0 +1,30 @@
+:sourcesdir: ../../../source
+
+[[start_app]]
+=== 启用应用程序
+
+当 Studio 导入了一个 CUBA 项目之后，会创建为 CUBA 特定修改的 Run/Debug 配置，目的是用来运行部署了应用的本地 Tomcat 服务。所以为了运行应用程序并能用调试器进行连接，只需要在主工具栏点击选中的 `CUBA Application` 配置边上的 debug 按钮即可。
+
+image::getting_started/app_start_1.png[align="center"]
+
+在 *Debug* 工具窗口的 *Console* 标签页可以看到状态。能通过点击打印在 `Server started at` 消息之后的链接地址在默认浏览器打开应用程序的图形界面。
+
+image::getting_started/app_start_2.png[align="center"]
+
+也可以通过 CUBA 树部分的 *Runs At...* 在浏览器打开运行的应用程序：
+
+image::getting_started/runs_at.png[align="center"]
+
+如果要查看应用程序服务的输出，切换到 *catalina.out* 标签页：
+
+image::getting_started/app_start_3.png[align="center"]
+
+如果要停止应用程序，可以通过在主菜单选择 *Run > Stop 'CUBA Application'* 或者点击 *Debug* 工具窗口的按钮：
+
+image::getting_started/app_start_4.png[align="center"]
+
+推荐在开发中使用 Run/Debug 配置来启动应用程序，但是通过 Studio 的 CUBA 主菜单项也可以控制本地 Tomcat 应用程序服务：
+
+image::getting_started/cuba_menu_2.png[align="center"]
+
+当从 *Start Application Server* 主菜单命令启动服务时，在 Windows 系统能看到一个控制台窗口显示服务器日志。在 Linux 或者 macOS 系统，不会显示控制台，但是可以在 *Terminal* 工具窗口通过执行 `tail -f deploy/tomcat/logs/app.log` 命令查看服务日志。*Stop Application Server* 命令通过发送 SHUTDOWN 信号给停止端口来停止 Tomcat 服务，停止端口是通过项目属性设置（默认是 8005）。

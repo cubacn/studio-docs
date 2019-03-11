@@ -1,0 +1,10 @@
+:sourcesdir: ../../../source
+
+[[ui_menu]]
+=== CUBA 菜单
+
+*CUBA* 主菜单可以快速访问 IDE 中的 CUBA 特有功能。某些菜单项功能与<<project_tree>> 及其右键菜单功能相同。
+
+image::ui/cuba_menu.png[align="center"]
+
+可以通过右击工具栏并选择 *Customize Menus and Toolbars*，将常用菜单项添加到主工具栏。在弹出的 *Menus and Toolbars* 窗口中，展开 *Main Toolbar* 项并使用 *Add Action* 按钮添加 *Main Menu > CUBA* 树中的条目。

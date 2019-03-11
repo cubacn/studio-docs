@@ -1,0 +1,26 @@
+:sourcesdir: ../../../../source
+
+[[generic_ui]]
+=== 通用 UI
+
+Studio 提供了许多有助于在应用程序中使用 {main_man_url}/gui_framework.html[通用 UI] 的功能。
+
+在项目树中，可以看到 Generic UI 的以下元素：
+
+* <<generic_ui_menu,Web Menu>> 打开主菜单的图形编辑界面。
+
+* {main_man_url}/main_message_pack.html[Main Message Pack] 部分包含主菜单项和通用 UI 元素的消息。
+
+* <<screen_descriptor,Screens>> 部分显示已有的应用程序界面。
+
+* <<generic_ui_themes,Themes>> 用于管理应用程序的可视化展现。
+
+include::generic_ui/create_screen.adoc[]
+
+include::generic_ui/screen_descriptor.adoc[]
+
+include::generic_ui/screen_controller.adoc[]
+
+include::generic_ui/generic_ui_menu.adoc[]
+
+include::generic_ui/generic_ui_themes.adoc[]

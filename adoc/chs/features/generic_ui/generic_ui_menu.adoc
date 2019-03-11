@@ -1,0 +1,93 @@
+:sourcesdir: ../../../../source
+
+[[generic_ui_menu]]
+==== 使用应用程序菜单
+
+菜单设计器允许定义应用程序主菜单并将其存储在 `web-menu.xml` 配置文件中。*Structure* 选项卡显示图形设计器，可以在 *Text* 选项卡上编辑菜单的 XML 代码。
+
+image::features/generic_ui/web_menu.png[align="center"]
+
+菜单可以以两种模式创建：
+
+ * 在 *Single mode* 中，菜单仅包含当前项目的 `web-menu.xml` 文件中的菜单项。在这种情况下，需要创建所有菜单项，必要时还需要将应用程序组件中的菜单项也定义进来，这种方式有点麻烦，但好处是可以完全控制菜单结构。
+
+* 在 *Composite mode* 中，菜单除了包含当前项目的 `web-menu.xml` 中的菜单项，还包含所有应用程序组件的菜单配置文件中的菜单项。这种模式可以很方便地包含所有继承的菜单项，可以在菜单结构的任何位置插入当前项目需要的菜单项。继承的菜单项不能被修改。
++
+此外，在 *Text* 选项卡上，可以为菜单项定义 `insertBefore` 或 `insertAfter` 属性。这两个属性定义了当前菜单项的插入位置。在 *Composite* 模式下，这两个属性有助于将当前项目菜单项与继承的应用程序组件菜单项组合在一起。
++
+例如，如果要将当前项目的菜单结构放在 _Administration_ 菜单项的左侧，可以为当前项目的菜单树的根菜单项设置属性  `insertBefore="administration"`。
+
+菜单配置文件列表通过 {main_man_url}/app_properties_reference.html#cuba.menuConfig[cuba.menuConfig] 应用程序属性定义，选择菜单模式时会更新此属性。
+
+要添加菜单项，选择已有的菜单项（或配置文件以创建顶级菜单），然后单击 image:plus_button.png[+]。菜单项编辑窗口会在模式窗口中打开。
+
+可以创建以下类型的菜单项：
+
+Screen - 界面::
++
+--
+image::features/generic_ui/web_menu_create.png[float="right"]
+
+用于打开应用程序界面的菜单项。
+
+应该为 *Screen* 项指定以下属性：
+
+* *Screen* - 这个菜单项打开的界面的非唯一 ID。
+* *Id* - 为菜单项指定任意唯一 ID。
+* *Open type* - 定义界面打开的方式，可以在新的选项卡打开，或者以模态窗的方式打开（`NEW_TAB` 或 `DIALOG`）。默认使用 `NEW_TAB`。
+* *Shortcut* - 用于打开界面的快捷键。可选的组合键（ALT、CTRL、SHIFT）用“-”分隔，例如 ALT-C。
+* *Style name* - 定义菜单项的样式名称。有关详细信息，请参阅 {main_man_url}/gui_themes.html[主题]。
+////
+* *Caption* - a menu item caption. The *Edit* button opens the localization window where you should enter captions in languages available for the project. Menu captions are placed in the corresponding main message pack with keys in `menu-config.{item_id}` format, where `{item_id}` is the item identifier, which in this case equals to the ID of the screen being opened.
+* *Insert before / Insert after* - a menu item, before/after which you want to insert the current item. This property helps to combine the project menu items with the items inherited from the app components in the *Composite* mode. For example, if you want to place your menu structure to the left of the _Administration_ item, set administration in the *Insert before* field of the root item of your hierarchy.
+* *Params* - screen parameters passed to the `init()` method of the opening screen's controller. See {main_man_url}/menu.xml.html[menu.xml] for detailed explanation.
+* *Permissions* - allows to restrict access to a menu item. If a user does not have permissions to access the item, it is not displayed. For detailed explanation see {main_man_url}/menu.xml.html[menu.xml], however there is a simpler way to manage access - through the *Screens* tab of the security role editor.
+////
+--
+
+Menu - 菜单::
++
+--
+image::features/generic_ui/web_menu_create_2.png[float="right"]
+
+包含其它菜单项（子菜单）的菜单项。
+
+需要为 *Menu* 项指定以下属性：
+
+* *Id* - 为菜单项指定任意唯一 ID。
+* *Style name* - 定义菜单项的样式名称。
+--
+
+Bean ::
++
+--
+image::features/generic_ui/web_menu_create_3.png[float="right"]
+
+调用 {main_man_url}/managed_beans.html[托管 Bean] 方法的菜单项。
+
+需要为 *Bean* 项指定以下属性：
+
+* *Id* - 为菜单项指定任意唯一 ID。
+* *Bean* - 可以通过 `AppBeans` 获取到的 bean 的名称（例如 `cuba_Messages`）。
+* *Bean method* - 要调用的 bean 的方法名称。
+* *Shortcut* - 用于方法调用的快捷键。可选的组合键（ALT、CTRL、SHIFT），用“-”分隔，例如 ALT-C。
+* *Style name* - 定义菜单项的样式名称。
+--
+
+Class - 类::
++
+--
+image::features/generic_ui/web_menu_create_4.png[float="right"]
+
+执行给定类的 `run()` 方法的菜单项。
+
+需要为 *Class* 项指定以下属性：
+
+* *Id* - 为菜单项指定任意唯一 ID。
+* *Class* - 一个类的完全限定名，这个类需实现  `Runnable` 接口。
+* *Shortcut* - 用于方法调用的快捷键。可选的组合键（ALT 、CTRL 、SHIFT），用“-”分隔，例如 ALT-C。
+* *Style name* - 定义菜单项的样式名称。
+--
+
+Separator - 分隔符::
+分隔菜单项的水平线。

@@ -1,0 +1,14 @@
+:sourcesdir: ../../source
+
+[[getting_started]]
+== 入门
+
+本节介绍如何在 Studio 中创建新项目或打开现有项目并启动应用程序。
+
+include::getting_started/create_project.adoc[]
+
+include::getting_started/open_project.adoc[]
+
+include::getting_started/upgrade_project.adoc[]
+
+include::getting_started/start_app.adoc[]

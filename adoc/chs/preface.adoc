@@ -1,0 +1,27 @@
+:sourcesdir: ../../source
+
+[[preface]]
+== 前言
+
+本手册提供了 CUBA Studio IDE 以及其功能的参考信息，CUBA Studio IDE 有助于提高基于 CUBA 框架的应用程序的开发效率。
+
+
+CUBA Studio 基于开源的 https://www.jetbrains.com/opensource/idea/[IntelliJ IDEA Platform]，并通过以下 CUBA 特有的功能对其进行扩展：
+
+* 创建 Gradle 构建脚本的脚手架代码。
+
+* 创建数据模型、数据库架构和 CRUD UI 的脚手架代码。
+
+* WYSIWYG 界面布局设计工具。
+
+* 对开发人员友好的功能，加快编码过程，包括：动作(action) 、 推断(intention) 、 检查(inspection)、 引用(reference)。
+
+* 轻松支持国际化。
+
+* 为现有的（或遗留的）数据库创建数据模型和 UI 界面。
+
+* 热（重新）部署。
+
+* 使用 CUBA 框架和扩展的版本升级更加容易。
+
+

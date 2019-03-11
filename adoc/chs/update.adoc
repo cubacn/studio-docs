@@ -1,0 +1,41 @@
+:sourcesdir: ../../source
+
+[[update]]
+== 更新
+
+[[update_ide]]
+更新独立 IDE::
++
+--
+可以从 https://www.cuba-platform.com/download[网站] 下载新版的独立 Studio IDE 然后覆盖安装。会保留之前所有的 Studio 设置。
+
+也可以从插件仓库安装 CUBA 插件的自动更新，这样就不用下载和安装整个 IDE 应用程序：
+
+. 打开 *Plugins* 对话框。
+
+. 点击 “齿轮” 图标并选中 *Manage Plugin Repositories*。
+
+. 点击 *Add* 然后在 *Repository URL* 字段输入下列内容：
++
+----
+https://plugins.jetbrains.com/plugins/haulmont/list
+----
+
+. 添加这个仓库后，切换到 *Updates* 标签页。
+
+. 如果有可用的更新，就可以在列表中看到。点击 CUBA 插件的 *Update* ，IDE 将会下载这个插件。
+
+. 下载完成后，需要重启 IDE 来应用新版的插件。
+
+--
+
+[[update_plugin]]
+更新 IntelliJ IDEA 插件::
++
+--
+. Windows 和 Linux 操作系统上点击 *Help > Check for Update*，MacOS 上点击 *IntelliJ IDEA > Check for Updates*。
+
+. 如果有可用的更新，会在列表中看到。选择 CUBA 插件 然后点击 *Update* 。IDE 将下载这个插件。
+
+. 下载完成后，需要重启 IDE 来应用新版的插件。
+--

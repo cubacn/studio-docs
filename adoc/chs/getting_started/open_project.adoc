@@ -1,0 +1,53 @@
+:sourcesdir: ../../../source
+
+[[open_project]]
+=== 打开现有项目
+
+打开已导入的项目::
++
+--
+如果在此计算机上已经通过 CUBA Studio 打开过该项目，请执行以下操作：
+
+. 使用最近项目列表或单击 *Open*，在文件系统对话框中选择 _ 项目目录 _，然后单击 *Open* 按钮。
+
+. 等待 Gradle 同步和项目索引过程完成。只要 CUBA 项目树出现在 *Project* 工具窗口中，就可以开始使用该项目了。
+--
+
+首次打开项目::
++
+--
+如果还没有在此计算机上通过 CUBA Studio 打开该项目，例如，只是通过 VCS 下载了代码，请执行以下操作：
+
+. 单击 *Open* 并在文件系统对话框中选择项目的 `build.gradle` 文件，然后点击 *Open* 按钮。
+
+. 在 *Open Project* 对话框中选择 *Open as Project*。
+
+. 在 *Import Project from Gradle* 对话框中：
+* 选择 *Use auto-import* 复选框。
+* 在 *Gradle JVM* 字段中选择 `Use JAVA_HOME`。如果在下拉列表中没有看到此选项，请确保已按照 CUBA 开发人员手册的 {main_man_url}/setup.html[安装] 部分中的说明正确配置了开发环境。
+* 点击 *OK*.
+
+* 等待 Gradle 同步和项目索引过程完成。CUBA 项目树会出现在 *Project* 工具窗口中。
+
+. 在主菜单点击 *File > Project Structure*。
+* 确保 *Project SDK* 字段的值跟环境中设置的 `JAVA_HOME` 一致。如果看到 `<No SDK>` 值，点击 *New* 然后选择 JDK 安装的目录，比如在 Windows 是 `++C:\Java\jdk8u202-b08++`，macOS 是 `/Library/Java/JavaVirtualMachines/jdk8u202-b08/Contents/Home`。
+* 确保 *Project language level* 字段的值跟 JDK 的版本一致。比如，如果 JDK 是 `1.8` 语言等级必须是 `8 - Lambdas, type annotations, etc.`
+--
+
+首次打开基于 CUBA 6.10 的项目::
++
+--
+CUBA Studio 支持基于 CUBA 6.10+和 7.0 的项目。可以打开在旧版本的 Studio 中创建的项目，并将其导入到新 Studio 中，进行以下操作：
+
+需要记住 CUBA 6.10 只支持 Java 8，所以 `JAVA_HOME` 环境变量必须指向 JDK 8 的安装目录。在迁移到 CUBA 7 之后，如果需要可以使用新版本的 JDK。
+
+如果是第一次打开已有的 CUBA 6.10 项目，需要按照下面的步骤：
+
+. 如果项目使用了 premium 扩展组件（Reports、BPM 等）并且已经有了许可，需要按照 {main_man_url}/access_to_repo.html#access_to_premium_repo[文档] 的描述在 `~/.gradle/gradle.properties` 文件内设置 premium 仓库的访问凭证。
+
+. 在命令行使用 `gradlew cleanIdea` 任务删除旧的 IntelliJ 项目文件。
+
+. 如果项目使用 Git 做版本控制，将 `.idea` 行添加到项目根目录下的 `.gitignore` 文件中。确保本地 IDE 设置不会在项目的所有开发人员之间共享。
+
+. 打开 `build.gradle` 文件，参考 *首次打开项目* 部分所述。
+--

@@ -1,0 +1,34 @@
+:sourcesdir: ../../../source
+
+[[upgrade_project]]
+=== 升级项目
+
+本节介绍将项目升级到较新版本 CUBA 的过程。
+
+[TIP]
+====
+建议使用版本控制对项目进行管理，并在升级之前提交所有未提交的改动。这样的话，如果由于某种原因导致升级失败，可以通过版本控制查看执行了哪些更改并快速回滚到以前的版本。
+====
+
+* 按照<<open_project,前一节>>中的描述打开项目。
+
+* 单击主菜单中的 *CUBA > Project Properties*，或双击 CUBA 项目树中的 *Project > Properties*。
+
+* 在 *CUBA Project Properties* 对话框中，在 *Platform version* 字段中选择所需的 CUBA 版本。
++
+[WARNING]
+====
+如果使用 `repo.cuba-platform.com` 仓库，则可以使用快照（SNAPSHOT）版本。强烈建议不要在生产环境使用快照版本。
+====
+
+* 单击 *OK*，然后确认。
+
+* 如果要升级到较新的功能版本（例如，从 6.10.X 升级到 7.0.X 或从 7.0.Y 升级到 7.1.Y），则会出现 *Migration Required* 弹窗，包含将由 Studio 自动执行的数据库迁移的信息。查看信息确认数据库迁移内容，然后单击 *Migrate*，注意，此时并不会执行数据库更新脚本，只是列出更新步骤。
+
+* Studio 会自动执行迁移，更新脚本（如果需要）并运行 Gradle `clean` 和 `undeploy` 任务。
+
+* 如果升级到新的功能版本，可能有新的改动使得项目不能运行，请查看 {rel_notes_url}[Release Notes] 中的 _Breaking Changes_ 部分，并相应地对项目进行修改。
+
+* 尝试通过执行 *CUBA > Build Tasks > Assemble* 来组装项目。如果编译不通过，可以按照日志输出来修复代码。
+
+* 执行 *CUBA > Update Database* 将框架中可能新引入的数据库结构更改合并到项目的数据库中。

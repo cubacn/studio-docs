@@ -1,0 +1,94 @@
+:sourcesdir: ../../../../source
+
+[[generate_model]]
+==== 生成数据模型
+
+Studio 允许为现有数据库创建数据模型和标准 UI 界面。单击 *CUBA > Advanced > Generate Model* 主菜单项或在项目树中选择 *Project > Data Stores*，然后在右键菜单中点击 *Generate Model*。如果有多个数据存储，Studio 会显示一个对话框，可以选择其一。
+
+然后 Studio 打开 *Generate Model from Database* 向导。
+
+步骤 1::
++
+--
+这是模型生成向导的第一步。
+
+image::features/data_model/generate_model_step1.png[align="center"]
+
+可选步骤：单击 image:gear_button.png[Settings] 以设置创建的新实体的 Java 包位置以及实体的系统属性与数据库列的默认映射。
+
+例如，如果数据库中的所有或大多数表包含 `Modified` 和 `ModifiedBy` 列，则可以将它们映射到被创建的实体的 `Updatable.updateTs` 和 `Updatable.updatedBy` 属性。在这种情况下，无需为每个表单独映射它们。
+
+使用 *Exclude columns from mapping* 列表可以为所有表设置不需要映射到属性的列。
+
+向导中会列出在项目数据模型中没有对应实体的表。可以使用上面的过滤器字段按名称查找表。
+
+选择要映射到数据模型的表。某些表通过外键依赖于其它表，因此当选择这些表时，它所依赖的所有表也将被选中。如果取消选择一个表，则也会取消选择所有依赖它的表。
+
+可以通过单击右侧的复选框来选择或取消选择所有可用表。
+
+单击 *Next*。
+--
+
+步骤 2::
++
+--
+在此步骤中，可以查看和编辑为所选表的自动生成的映射。
+
+image::features/data_model/generate_model_step2.png[align="center"]
+
+*Status* 列描述自动映射的结果：
+
+* *OK* - 自动映射成功，所有列都映射到新实体。
+* *Join table* -  识别出实体之间的关联，会被映射为多对多关系的连接表。
+* *There are unmapped columns* - 某些列无法映射到新实体。
+* *New PK will be created* - 该表没有主键。将创建一个新的 UUID 类型的主键。
+* *Composite PK will be replaced* - 该表具有复合主键，但没有其它表引用它。复合主键将被替换为 UUID 类型的主键。
+* *Composite PK referenced by other tables* - 该表有一个复合主键，一些表引用它。Studio 无法映射此类表。
+* *Unsupported PK type* - 该表具有不支持的主键类型。Studio 无法映射此类表。
+* *Choose primary key for DB view* - 它是一个数据库视图，应该选择适合作为实体标识符的一列或一组列。在这种情况下，单击 *Choose PK* 按钮并选择主键的列。
+
+
+image:refresh_button.png[Refresh mapping] 按钮允许重新运行所选表的自动映射。例如，可以切换到数据库 SQL 工具，对数据库架构进行一些更改，然后返回到向导并再次执行映射过程。
+
+image:edit_button.png[Edit mapping] 按钮打开一个包含映射详细信息的对话框窗口。在这里，可以更改实体名称和实体类要实现的系统接口。根据实现接口的不同，为了兼容 CUBA 的实体，会影响数据库列的创建数量。
+
+image::features/data_model/generate_model_step2_2.png[align="center"]
+
+当选中的是数据库视图并且需要选择用于实体标识符的列时，将显示 *Choose PK* 按钮而不是 *Edit mapping*。
+
+通过单击 *Back*，可以返回到上一步以选择或取消选择表。
+
+单击 *Next* 转到下一步。
+--
+
+步骤 3::
++
+--
+在此步骤中，可以指定应为新实体创建哪些 UI 界面。
+
+image::features/data_model/generate_model_step3.png[align="center"]
+
+如果取消选中 *Create standard screen* 复选框，Studio 将不会为新实体生成 UI。
+
+使用 *In module* 、*Package* 和 *Menu* 字段指定界面源代码的位置以及在主菜单中它们的显示位置。
+
+使用 *Standard screens* 列中的下拉列表选择要生成的界面类型。
+
+可以安全地跳过此步骤，并在完成模型生成过程后为实体生成 UI 界面。
+
+单击 *Next* 转到下一步。
+--
+
+步骤 4::
++
+--
+这是模型生成向导的最后一步。
+
+//TODO insert screenshot
+
+*Import scripts* 表包含将在数据库上执行的脚本列表，查看这些脚本，以确认其符合要创建的实体。
+
+在此之前，项目中不会创建任何内容，甚至也不会保存到磁盘中。Studio 实际上只会在点击 *Run all scripts* 或 *Run script* 时生成实体和界面并保存脚本。
+
+可以在此页面上查看和编辑脚本，然后运行它们，或者仅保存脚本，稍后通过数据库管理工具来运行。导入脚本保存在 `modules/core/db/import` 目录中。
+--

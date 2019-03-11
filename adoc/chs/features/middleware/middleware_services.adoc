@@ -1,0 +1,25 @@
+:sourcesdir: ../../../../source
+
+[[middleware_services]]
+==== 创建服务
+
+{main_man_url}/services.html[服务] 是容器管理的组件集，它们构成中间层边界并为客户端层提供接口。服务可以包含业务逻辑本身，也可以将执行委托给<<middleware_beans,托管 Bean>>。
+
+要创建新服务，请选择 *Middleware* 项目树区域，然后在右键菜单中单击 *New > Service*：
+
+image::features/middleware/create_service.png[align="center"]
+
+输入服务接口的名称时，将自动生成相应的 bean 名称和服务名称常量：
+
+image::features/middleware/create_service_2.png[align="center"]
+
+之后，将在 *global* 模块中创建服务接口，并在 *core* 模块中创建其实现。此外，新服务将自动注册在 `web-spring.xml` 配置文件中。
+
+可以从代码编辑器边栏上的标记轻松地从接口切换到服务 bean 并返回：
+
+image::features/middleware/service_interface.png[align="center"]
+
+一旦在服务接口中创建了方法，Studio 检查器就会建议在 bean 类中进行实现：
+
+image::features/middleware/service_interface_2.png[align="center"]
+

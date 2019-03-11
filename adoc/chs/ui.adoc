@@ -1,0 +1,12 @@
+:sourcesdir: ../../source
+
+[[ui]]
+== Studio 用户界面
+
+本节介绍 CUBA 特有的 IDE 元素的用户界面。有关 IntelliJ IDEA 的所有功能，请参阅 https://www.jetbrains.com/help/idea/discover-intellij-idea.html[文档]。
+
+include::ui/project_tree.adoc[]
+
+include::ui/ui_menu.adoc[]
+
+include::ui/settings.adoc[]
