@@ -3,12 +3,87 @@
 [[release_notes]]
 == 发行说明
 
+版本 10::
++
+--
+. 实体、界面控制器和界面描述的代码编辑器顶部现在提供了一个工具栏，通过这个工具栏可以快速访问 CUBA 提供的操作、在相关文件之间快速跳转：
++
+image::release_notes/v-10-actions-panel.png[align="center"]
++
+通过面板的按钮可以很快的切换到相关的 DDL 脚本、视图和界面。另外，还可以创建新视图、新界面以及JPA生命周期回调方法。
++
+这些操作在 IDEA 的 “intentions” 菜单也同样提供了，这个菜单可以通过快捷键 Alt+Enter (Option+Enter) 调出：
++
+image::release_notes/v-10-actions-menu.png[align="center"]
+
+. 实现了为 `EntityChangedEvent` 监听器创建脚手架代码的功能。在 CUBA 项目树选择一个实体类、包、或者最外层的 *Middleware* 节点，然后点击右键菜单中的 *New > EntityChangedEvent Listener*。Studio 会在 `core` 模块创建 Spring bean，带有两个监听器方法：分别在事务提交前和后收到通知。
+
+. 实现了为 JMX bean 创建脚手架代码的功能。在 CUBA 项目树选择 *Middleware* 节点或者 *Beans* 节点下的一个包，然后点击右键菜单的 *New > JMX Bean*。
+
+. 实现了为配置接口生成脚手架代码的功能。在 CUBA 项目树选择 *Project > Config Interfaces* 节点，然后点击右键菜单的 *New > Configuration Interface*。
+
+. *Inject* 对话框现在包含了 *Project bean* 的选择区域，这里可以注入任何项目中可用的 Spring bean。
+
+. 使用 Groovy 编写的界面控制器也能使用 *Inject* 对话框了。
+
+. 提升了依赖注入的体验：现在如果将光标放在方法体内并调出 *Inject* 弹窗，注入的字段定义会自动生成在类的顶部，而字段名会自动复制到光标处。
+
+. *将组件注入控制器* 的行为现在也能在组件的 XML 内做了。试试将光标放在XML中一个组件的元素上，然后按下快捷键 Alt+Enter (Option+Enter)。
+
+. 实现了添加实体索引和唯一约束的可视化编辑器。可以在实体编辑界面的底部找到新的 *Indexes* 标签页。
+
+. 实现了检查重复实体名称和表名的功能。如果为多个类定义了相同的实体名或者表名，则会在实体类显示提示。
+
+. 实现了在实体的字段添加正确 JPA 注解的功能。简化了手动编写实体属性的工作：您在可以添加实体字段并生成 getters/setters 之后在该字段按下 Alt+Enter (Option+Enter)，即可看到相关选项。
+
+. 在界面控制器代码中，如果注入了界面 XML 中不存在的组件，则会显示提示信息：
++
+image::release_notes/v-10-warn-nonexisting.png[align="center"]
+
+. 在实体类代码里，如果实体类没有 `@NamePattern` 注解的话，也会显示警告信息：
++
+image::release_notes/v-10-warn-namepattern.png[align="center"]
++
+可以在类名处通过按下 Alt+Enter (Option+Enter) 快捷键修复问题或者屏蔽这个警告。
+
+. 视图设计器现在使用了主从布局，视图列表在左边，选中的视图编辑在右边。
+
+. 对基于 CUBA 7.1 以上版本的项目，添加了如下功能：
+.. 能使用带侧边菜单和响应式侧边菜单的主界面模板。
+.. 支持向声明式打开的界面和 fragments 传递属性参数。
+.. 支持 REST API 扩展组件。
+
+. 所有解决的问题：
+
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%2010.0[Studio 10.0 解决的问题\]]
+
+--
+
 版本 9::
 +
 --
 . *破坏性更改*：Studio 现在使用 HSQL 2.4.1。当打开一个使用 HSQL 数据库的项目时，Studio 会提示升级项目文件 `build.gradle` 中的 HSQL 版本。如果同意，项目可以正确的用 Studio v.9+ 继续工作。但是，要注意以下问题：
 .. 带有新 HSQL 驱动的应用程序如果在带有旧 HSQL 驱动的之前版本 Studio 打开的话，有可能启动不了。
 .. 基于 CUBA 7.1 之前的使用 HSQL 的项目，计划任务会失效，因为之前版本的数据库表有一列叫 `PERIOD`，现在在 HSQL 2.4.1 中已经是保留字了。在 CUBA 7.1 里面重命名了该列。
++
+[TIP]
+====
+如果您使用的是 CUBA 7.0 或者更低的版本，而且在开发阶段需要使用 HSQL 和计划任务，可以按照下面的步骤在 Studio 使用 HSQL 2.2.9:
+
+. 退出 Studio。
+
+. 复制 `cuba-studio` 目录：
+** Windows 系统：从 `C:\Program Files\Haulmont\CUBA Studio 2018.3\plugins\` 复制到 `%userprofile%\.CubaStudio2018.3\config\plugins\`
+** MacOS 系统：从 `/Applications/CUBA Studio.app/Contents/plugins/` 复制到 `~/Library/Application Support/CubaStudio2018.3/`
+
+. 在拷贝的 `cuba-studio/lib` 目录中，使用 `hsqldb-2.2.9.jar` 替换 `hsqldb-2.4.1.jar`。可以在 http://central.maven.org/maven2/org/hsqldb/hsqldb/2.2.9/hsqldb-2.2.9.jar[这里] 下载。
+
+. 启动 Studio 并打开项目。
+
+. 在 `build.gradle` 中使用 `def hsql = 'org.hsqldb:hsqldb:2.2.9'` 替换 `def hsql = 'org.hsqldb:hsqldb:2.4.1'`。
+
+至此，Studio 和项目都会使用 HSQL 2.2.9，基于 CUBA 7.0 和更低版本的应用程序便能在 HSQL 使用计划任务了。
+====
 
 . 热部署机制现在能同时部署更改的类依赖的所有类，这样不会在打开修改了的界面时弹出 `ClassCastException`。
 
@@ -46,7 +121,9 @@
 
 . 所有解决了的问题：
 
-** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Milestone:%20%7BRelease%209%7D%20State:%20Fixed,Verified[Studio 9.0 解决的问题\]]
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%209.1[Studio 9.1 解决的问题\]]
+
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%209.0%20Milestone:%20%7BRelease%209%7D%20[Studio 9.0 解决的问题\]]
 --
 
 版本 8::
@@ -72,9 +149,9 @@
 
 . 所有解决了的问题：
 
-** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%208.2.*[Studio 8.2 解决的问题\]]
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%208.2[Studio 8.2 解决的问题\]]
 
-** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%208.0.*%20Fixed%20in%20builds:%208.1.*[Studio 8.0-8.1 解决的问题\]]
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%208.0%20Fixed%20in%20builds:%208.1[Studio 8.0-8.1 解决的问题\]]
 --
 
 版本 7::
@@ -84,7 +161,7 @@
 
 . 所有解决了的问题：
 
-** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%207.3.*%20Fixed%20in%20builds:%207.4.*[Studio 7.3-7.4 解决的问题\]]
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%207.3%20Fixed%20in%20builds:%207.4[Studio 7.3-7.4 解决的问题\]]
 
 ** https://youtrack.cuba-platform.com/issues/STUDIO?q=Milestone:%20%7BRelease%207%7D%20State:%20Fixed,%20Verified%20Fix%20versions:%207.2%20Affected%20versions:%20-SNAPSHOT%20sort%20by:%20created%20asc[Studio 7.2 解决的问题]
 
