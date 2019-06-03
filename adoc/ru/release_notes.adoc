@@ -3,12 +3,82 @@
 [[release_notes]]
 == Release Notes
 
+Версия 10::
++
+--
+. В редакторы кода сущностей, контроллеров и дескрипторов экранов добавлена панель, предоставляющая быстрый доступ к относящимся к CUBA действиям и позволяющая переходить к связанным файлам. Например, так выглядит панель в редакторе класса сущности:
++
+image::release_notes/v-10-actions-panel.png[align="center"]
++
+Используя кнопки панели, можно быстро перейти к DDL-скриптам данной сущности, представлениям и экранам. Кроме того, можно создавать новые представления, экраны и методы обратного вызова JPA.
++
+Действия также продублированы в контекстном меню "intentions", которое вызывается нажатием Alt+Enter (Option+Enter):
++
+image::release_notes/v-10-actions-menu.png[align="center"]
+
+. Реализована генерация кода слушателей `EntityChangedEvent`. Для ее запуска выберите в дереве проекта CUBA класс сущности, пакет или узел верхнего уровня *Middleware*, и щелкните в контекстном меню пункт *New > EntityChangedEvent Listener*. Studio создаст в модуле `core` Spring-бин с двумя методами-слушателями: один будет вызываться до коммита транзакции, второй после коммита.
+
+. Реализована генерация кода JMX-бинов. Для ее запуска выберите в дереве проекта CUBA узел *Middleware*, или один из пакетов в узле *Beans*, и щелкните в контекстном меню пункт *New > JMX Bean*.
+
+. Реализована генерация кода конфигурационных интерфейсов. Для ее запуска выберите в дереве проекта CUBA узел *Project > Config Interfaces* и щелкните в контекстном меню пункт *New > Configuration Interface*.
+
+. Диалог *Inject* теперь содержит раздел *Project Beans*, который позволяет инжектировать все Spring-бины, доступные в проекте.
+
+. Диалог *Inject* теперь работает и в контроллерах экранов, написанных на Groovy.
+
+. Усовершенствовано поведение системы при инжектировании: если поместить курсор внутри метода и вызвать диалог *Inject*, то результирующее поле будет сгенерировано вверху определения класса, и имя поля будет автоматически скопировано в позицию курсора.
+
+. На XML-элементах компонентов экранов доступна подсказка (intention) *Inject component into controller*. Она вызывается нажатием Alt+Enter (Option+Enter) когда курсор находится на XML-элементе компонента.
+
+. Реализован визуальный дизайнер индексов и ограничений уникальности для сущностей. См. вкладку *Indexes* внизу редактора сущности.
+
+. Реализованы проверки (inspections) дубликатов имен сущностей и таблиц базы данных. Они отображаются как предупреждения в классе сущности, если в проекте присутствует сущность с таким же именем или таким же именем таблицы.
+
+. Реализованы подсказки (intentions) для добавления корректных JPA-аннотаций полям сущностей. Они упрощают ручное кодирование атрибутов сущностей: достаточно добавить поле в класс, сгенерировать getters/setters и затем нажать Alt+Enter (Option+Enter) на поле для генерации аннотаций.
+
+. В коде контроллера экрана выдается предупреждение, если инжектирован компонент, не объявленный в XML-дескрипторе:
++
+image::release_notes/v-10-warn-nonexisting.png[align="center"]
+
+. В коде класса сущности выдается предупреждение, если у класса нет аннотации `@NamePattern`:
++
+image::release_notes/v-10-warn-namepattern.png[align="center"]
++
+Проблему можно исправить, или подавить предупреждение, нажав Alt+Enter (Option+Enter) на имени класса.
+
+. Редактор представлений теперь имеет компоновку master-detail со списком представлений слева и выбранным представлением справа.
+
+. Для проектов, основанных на CUBA 7.1 и выше, реализованы следующие возможности:
+.. Шаблоны главного экрана с side menu и responsive side menu.
+.. Поддержка передачи свойств в экраны и фрагменты, открываемые декларативно.
+.. Поддержка аддона REST API.
+--
+
 Версия 9::
 +
 --
 . BREAKING CHANGE: Studio теперь включает HSQL версии 2.4.1. При первом открытии проекта, использующего базу данных HSQL, Studio предлагает обновить версию HSQL в файле `build.gradle` проекта. После обновления, проект будет корректно работать в Studio версии 9+. Однако, имейте в виду следующие возможные проблемы:
 .. Приложение не сможет стартовать, если проект с новым драйвером HSQL будет открыт в предыдущей версии Studio, содержащей старый сервер HSQL;
 .. В проектах с HSQL на базе CUBA версии ниже 7.1, Scheduled Tasks не работают, так как их таблица содержит колонку с именем `PERIOD`, которое является зарезервированным словом в HSQL 2.4.1. Колонка переименована в CUBA 7.1.
++
+[TIP]
+====
+Если вы используете CUBA 7.0 или ниже, и вам нужно работать с HSQL и Scheduled Tasks во время разработки, вы можете заставить Studio использовать HSQL 2.2.9 следующим образом:
+
+. Закройте Studio.
+
+. Скопируйте каталог `cuba-studio`:
+** на Windows из `C:\Program Files\Haulmont\CUBA Studio 2018.3\plugins\` в `%userprofile%\.CubaStudio2018.3\config\plugins\`
+** на macOS из `/Applications/CUBA Studio.app/Contents/plugins/` в `~/Library/Application Support/CubaStudio2018.3/`
+
+. Замените в скопированном каталоге `cuba-studio/lib` файл `hsqldb-2.4.1.jar` файлом `hsqldb-2.2.9.jar`. Его можно загрузить http://central.maven.org/maven2/org/hsqldb/hsqldb/2.2.9/hsqldb-2.2.9.jar[отсюда].
+
+. Запустите Studio и откройте проект.
+
+. Замените строку `def hsql = 'org.hsqldb:hsqldb:2.4.1'` на `def hsql = 'org.hsqldb:hsqldb:2.2.9'` в файле `build.gradle`.
+
+Теперь и Studio, и ваш проект будут использовать HSQL 2.2.9, так что приложение на CUBA 7.0 или ниже сможет работать с Scheduled Tasks на базе данных HSQL.
+====
 
 . Механизм Hot deploy теперь деплоит все зависимые классы вместе с измененным, что исключает `ClassCastException` при открытии измененных экранов.
 
@@ -46,7 +116,9 @@
 
 . Все завершенные задачи:
 
-** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Milestone:%20%7BRelease%209%7D%20State:%20Fixed,Verified[Studio 9.0 Resolved Issues\]]
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%209.1[Studio 9.1 Resolved Issues\]]
+
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%209.0%20Milestone:%20%7BRelease%209%7D%20[Studio 9.0 Resolved Issues\]]
 --
 
 Версия 8::
@@ -72,9 +144,9 @@
 
 . Все завершенные задачи:
 
-** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%208.2.*[Studio 8.2 Resolved Issues\]]
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%208.2[Studio 8.2 Resolved Issues\]]
 
-** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%208.0.*%20Fixed%20in%20builds:%208.1.*[Studio 8.0-8.1 Resolved Issues\]]
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%208.0%20Fixed%20in%20builds:%208.1[Studio 8.0-8.1 Resolved Issues\]]
 --
 
 Версия 7::
@@ -84,7 +156,7 @@
 
 . Все завершенные задачи:
 
-** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%207.3.*%20Fixed%20in%20builds:%207.4.*[Studio 7.3-7.4 Resolved Issues\]]
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%207.3%20Fixed%20in%20builds:%207.4[Studio 7.3-7.4 Resolved Issues\]]
 
 ** https://youtrack.cuba-platform.com/issues/STUDIO?q=Milestone:%20%7BRelease%207%7D%20State:%20Fixed,%20Verified%20Fix%20versions:%207.2%20Affected%20versions:%20-SNAPSHOT%20sort%20by:%20created%20asc[Studio 7.2 Resolved Issues]
 
