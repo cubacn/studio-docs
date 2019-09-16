@@ -1,0 +1,81 @@
+[[relnotes_11]]
+
+版本 11::
++
+--
+. 添加了 "CUBA Add-ons" 界面，可以通过该界面管理项目中的扩展插件。
+可以在 CUBA 项目树双击 *Project* -> *Add-ons* 或者从主菜单的 *CUBA* -> *Marketplace...* 打开该界面。
+关于该界面的详细描述请参阅<<add_ons,此章节>>。
++
+image::features/project/addons-market-small.png[align="center"]
+
+. 添加了 <<welcome_screen,欢迎界面>>。简化了访问通用项目设置和操作的流程，并带有文档和社区网页的链接。
+
+. 添加了管理第三方依赖库的 UI。在 <<project_properties_dependencies,Project Properties Editor>> 可以使用。
+
+. 实体设计器已经使用 IntelliJ UI 组件进行了重构。新设计器有如下好处：
+.. 更好的响应体验，打开速度更快
+.. 对实体和其属性的改动会立即反馈到源代码
+.. 集成了 IntelliJ 智能重构技术，比如 *安全删除* 实体属性
++
+image::release_notes/v-11-entity-designer.png[align="center"]
+
+. 实施了实体属性的 *安全删除* 重构技术。
+如要开始重构，从实体设计器删除属性或在源码中右键点击该属性选择 *Refactor* -> *Safe Delete...*。该重构动作会在视图、界面和其他的配置文件里面搜索此属性的使用情况。并能自动删除安全的地方，对需要手动修复的地方给出警告。
++
+image::release_notes/v-11-safe-delete-attr.png[align="center"]
+
+. 数据存储配置已经从 *Project Properties* 界面移出。现在数据存储配置可以在 CUBA 项目树的 *Data Stores* 部分查看和编辑。主数据存储的设置可以从主菜单 *CUBA* -> *Main Data Store Settings...* 打开。请参考 <<data_stores,管理数据存储>> 章节了解细节。
+
+. 能使用 *HSQLDB InMemory* 作为附加数据存储。
+
+. 支持使用 https://mariadb.org/[MariaDB] 作为主或附加数据存储。
+
+. 支持使用 https://aws.amazon.com/redshift/[Amazon Redshift] 作为附加数据存储。
+
+. 在实体源码编辑器的操作面板添加了 *Add attribute*。
++
+image::release_notes/v-11-add-attr.png[align="center"]
+
+. 支持 `EntityChangedEvent` 监听的操作也添加到了实体源码编辑器的操作面板。可以用来创建新的监听器或者导航至已经存在的监听器方法。
++
+image::release_notes/v-11-entity-changed-action-panel.png[align="center"]
+
+. 添加了 *创建 CUBA EntityChangedEvent 监听器* 脚手架代码的对话框。现在可以在一个类里面创建多个监听方法并选择两个额外的事件。
++
+image::release_notes/v-11-new-entity-changed-dialog.png[align="center"]
+
+. 在实体设计器中支持更多的 BeanValidation 2.0 注解：`@NotEmpty`、`@Positive`、`@PastOrPresent` 以及其它。
+
+. 当为实体添加属性时，实体设计器能自动识别属性名称是否能作为实体名称显示（`name`、`caption`、`title` 等），如果此时还未有实体名称的话，会自动生成 {main_man_url}/entity_class_annotations.html#namePattern_annotation[@NamePattern 注解] 。
+
+. 视图设计器现在可以为已经存在视图更名，并对使用该视图的地方进行名称替换。
+
+. IDEA 的 *Inject 'xxx'* 快速修复提示现在可以根据变量名注入 bean - 扩展了其实现，可用于界面控制器和 Spring bean 的上下文中。使用该快速提示的方法示例：
++
+image::release_notes/v-11-inject-before.png[align="center"]
++
+image::release_notes/v-11-inject-after.png[align="center"]
++
+要使用该功能，在 Spring bean 或者 CUBA 界面控制器中输入需要注入的 bean 的变量名。然后按下 Alt+Enter，在提示框选择 *Inject 'beanName'*。bean 的类名根据变量名自动关联，所以变量名必须跟 bean 接口的名称一致。比如：`dataManager`、`fileStorageService`、`messageBundle` 和 `clusterManagerAPI`，这些变量名会被识别并成功注入对应的 CUBA bean。
+
+. 添加了 Java 代码检查器，检查使用 `getMessage` 和 `formatMessage` 方法指定的本地化字符串是否存在。
++
+image::release_notes/v-11-message-quick-fix.png[align="center"]
++
+`MessageBundle`、`Messages` 和 `AbstractWindow`（旧界面）类的 `getMessage` 和 `formatMessage` 会使用该检查。如果指定键值的消息在指定的消息包中不存在，消息键值会高亮为红色。
++
+如果按下 Alt+Enter 并选择 *Create message in the message bundle* 进行快速修复，Studio 会打开 *Localization Message* 对话框，用来为所有配置的项目 locale 输入本地化消息。
+
+. Studio 中独立的 IDE 版本已经升级至 IntelliJ Community platform *2019.1*。之前下载的独立版本不会自动升级，您需要从 {cuba-download-site}[CUBA Platform] 网站重新下载。
+
+. 包含该版本的 IntelliJ IDEA 的 CUBA 插件已经上传至主插件（稳定）频道。所以不需要单独设置额外的插件仓库了。如果您使用的是之前版本的 CUBA Studio 插件，现在可以从 *Custom Plugin Repositories - 自定义插件仓库* 列表中移除 https://plugins.jetbrains.com/plugins/haulmont/list 了。 自定义仓库列表在这里：*File* -> *Settings* -> *Plugins* -> "gear" icon -> *Manage Plugin Repositories*
+
+. 其它很多小的改进和缺陷修复：
+
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%2011.3[Studio 11.3 解决的问题\]]
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%2011.2[Studio 11.2 解决的问题\]]
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%2011.1[Studio 11.1 解决的问题\]]
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%2011.0[Studio 11.0 解决的问题\]]
+
+--

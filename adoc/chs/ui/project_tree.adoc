@@ -9,61 +9,18 @@ CUBA 项目树用于展示项目结构及其重要元素，通常在 IDE 左侧�
 
 image::ui/cuba_tree.png[align="center"]
 
-////
-[source, plain]
-----
-CUBA
-    Application
-            http://localhost:8080/app
-    Project
-        Properties
-        Build Script
-            build.gradle
-            settings.gradle
-        Modules
-            global
-                metadata.xml
-                persistence.xml
-                views.xml
-            core
-                app.properties
-                spring.xml
-            web
-                web-app.properties
-                web-dispatcher-spring.xml
-                web-menu.xml
-                web-permissions.xml
-                web-screens.xml
-                web-spring.xml
-        Data Stores
-            _MAIN_
-        Deployment
-            WAR Settings
-            UberJAR Settings
-    Data Model
-    Middleware
-        Services
-        Beans
-    Generic UI
-        Web menu
-        Main Message Pack
-            messages.properties
-        Screens
-        Themes
-    REST API
-----
-////
-
 . *Project*
 +
 --
 * <<project_properties,Properties>> - 允许配置项目的基本设置。
 
+* <<add_ons,Add-ons>> - 打开界面配置项目中用到的 CUBA 扩展。
+
 * *Build Script* - 包含两个主要项目脚本： {main_man_url}/build.gradle.html[build.gradle] （定义构建配置）和 `settings.gradle`（定义项目名称和模块组）。
 
 * <<modules,Modules>> - 显示所有项目模块。
 
-* *Data Stores* - 显示项目所连接的 {main_man_url}/data_store.html[数据存储] 列表。默认情况下，只有 `_MAIN_` 数据存储。
+* <<data_stores,Data Stores>> - 显示并管理项目所连接的 {main_man_url}/data_store.html[数据存储] 列表。默认情况下，只有 `Main` 数据存储。
 
 * <<deployment,Deployment>> - 允许定义项目部署选项。
 --

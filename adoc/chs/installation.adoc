@@ -9,7 +9,7 @@
 
 IDE 版本对应于使用的 IntelliJ IDEA 的版本，比如，{idea-version}。CUBA 插件有自己独立的版本号，从 {plugin-version} 开始。
 
-可以从 https://www.cuba-platform.com/download 下载适用于 Windows、macOS 和 Linux 的独立 IDE 的安装程序。插件可以通过 IntelliJ 插件仓库下载（参考<<install_plugin,下面>>）。
+可以从 {cuba-download-site} 下载适用于 Windows、macOS 和 Linux 的独立 IDE 的安装程序。插件可以通过 IntelliJ 插件仓库下载（参考<<install_plugin,下面>>）。
 
 [[install_windows]]
 在 Windows 上安装::
@@ -76,27 +76,13 @@ $ ./cuba-studio.sh
 IntelliJ IDEA 插件安装::
 +
 --
-. 启动 IntelliJ IDEA {idea-version} 或者更新版本。
+. 启动 IntelliJ IDEA {minimal-idea-version} 或者更新的版本。
 
 . 打开 *Plugins* 对话框。
 
-. 点击“齿轮”图标并选择 *Manage Plugin Repositories*。
+. 切换到 *Marketplace* 标签页
 
-. 点击 *Add* 并在 *Repository URL* 字段输入以下内容：
-+
-----
-https://plugins.jetbrains.com/plugins/haulmont/list
-----
-
-. 添加完仓库之后，切换到 *Marketplace* 标签页。
-
-. 在搜索框输入以下内容：
-+
-----
-repository:"https://plugins.jetbrains.com/plugins/haulmont/list"
-----
-
-. 能在搜索结果中看到 CUBA 插件。
+. 在搜索栏输入 "CUBA"，可以在搜索结果看到 CUBA 插件。
 
 . 点击 *Install* ，之后按照 IDE 的步骤继续安装。
 --

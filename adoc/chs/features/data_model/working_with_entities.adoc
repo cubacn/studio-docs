@@ -28,11 +28,11 @@
 
 * 使用实体设计器的图形化界面：切换到 *Designer* 选项卡，单击 *Attributes* 表下方的 *New* 并填写 *New Attribute* 窗口中的必填字段。
 +
-*Name* 字段旁边的按钮用于直接设置属性的用户友好名称。友好名称存储在 `messages.properties` 文件中，UI 组件默认使用这个文件来获取实体属性名称。如果为应用程序定义了多种语言，可以为所有语言指定本地化名称。
+*Name* 字段右边的地球仪按钮用于直接设置属性的用户友好名称。友好名称存储在 `messages.properties` 文件中，UI 组件默认使用这个文件来获取实体属性名称。如果为应用程序定义了多种语言，可以为所有语言指定本地化名称。
 +
 image::features/data_model/attribute_l10n.png[align="center"]
 
-* 使用从源码打开的独立窗口。在源码中将光标定位在最后一个字段下方，然后按下 Alt+Insert (Cmd+N)。在 *Generate* 菜单中，选择 *Add Attribute*。Studio 将显示 *New Attribute* 窗口，和从图形界面打开的一样。
+* 使用从源码打开的独立窗口。在源码中将光标定位在最后一个字段下方，然后按下 Alt+Insert (Cmd+N)。在 *Generate* 菜单中，选择 *Add Attribute*。Studio 将显示 *New Attribute* 窗口，和从图形界面打开的一样。在代码编辑器的操作面板，也可以点击 *Add attribute* 按钮打开同样的窗口。 
 +
 image::features/data_model/new_attribute_2.png[align="center"]
 
@@ -49,7 +49,7 @@ image::features/data_model/add_attribute_to_screens.png[align="center"]
 创建实例名称::
 +
 --
-可以用作另一个实体的引用属性的实体（例如 `Customer` 可以是 `Order` 的属性）需要一个模式(pattern)来生成实例的有意义的名称。此模式(pattern)由实体类上的 {main_man_url}/entity_class_annotations.html#namePattern_annotation[@NamePattern] 注解定义。将光标定位在类代码中的任何位置，即可在 Studio 中创建实体的名称模式，按 Alt+Enter（Option+Enter）并选择 *Add name pattern*（仅当实体没有 `@NamePattern` 注解时才显示此项）：
+可以用作另一个实体的引用属性的实体（例如 `Customer` 可以是 `Order` 的属性）需要一个模式(pattern)来生成实例的有意义的名称。此模式(pattern)由实体类上的 {main_man_url}/entity_class_annotations.html#namePattern_annotation[@NamePattern] 注解定义。将光标定位在类名称上，即可在 Studio 中创建实体的名称模式，按 Alt+Enter（Option+Enter）并选择 *Add name pattern*（仅当实体没有 `@NamePattern` 注解时才显示此项）：
 
 image::features/data_model/create_name_pattern.png[align="center"]
 

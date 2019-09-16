@@ -1,0 +1,11 @@
+:sourcesdir: ../../../source
+
+[[welcome_screen]]
+=== 欢迎界面
+
+在新项目创建时，*欢迎* 界面会自动在工作区打开。也可以通过主菜单 *CUBA* -> *Welcome* 来打开。
+
+该界面提供主要项目设置、常用操作、文档和社区网页链接的快捷入口。
+也会显示项目中用到的 CUBA 版本信息和 Studio 版本信息以及商业订阅信息。
+
+image::ui/welcome_screen.png[align="center"]

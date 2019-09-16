@@ -25,6 +25,6 @@ image::getting_started/app_start_4.png[align="center"]
 
 推荐在开发中使用 Run/Debug 配置来启动应用程序，但是通过 Studio 的 CUBA 主菜单项也可以控制本地 Tomcat 应用程序服务：
 
-image::getting_started/cuba_menu_2.png[align="center"]
+image::getting_started/cuba_menu_appserver.png[align="center"]
 
 当从 *Start Application Server* 主菜单命令启动服务时，在 Windows 系统能看到一个控制台窗口显示服务器日志。在 Linux 或者 macOS 系统，不会显示控制台，但是可以在 *Terminal* 工具窗口通过执行 `tail -f deploy/tomcat/logs/app.log` 命令查看服务日志。*Stop Application Server* 命令通过发送 SHUTDOWN 信号给停止端口来停止 Tomcat 服务，停止端口是通过项目属性设置（默认是 8005）。

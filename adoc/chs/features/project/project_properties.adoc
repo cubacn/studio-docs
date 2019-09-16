@@ -5,7 +5,7 @@
 
 *Project Properties* 编辑界面允许对项目进行配置。可以从 *CUBA* 主菜单中打开它，也可以通过双击项目树的 *Project > Properties* 项来打开。
 
-主选项卡::
+基本设置::
 +
 --
 *Main* 选项卡显示基本设置。
@@ -14,7 +14,9 @@
 
 * *Platform version* 选择平台的版本。如果选择了较新版本，则会根据需要决定是否会执行版本的自动迁移。
 
-* 在 *App components* 面板中，可以添要在项目中使用的由平台提供的或自定义的应用程序组件。
+* *Groovy support* 复选框可以在应用程序内启用 Groovy 代码，比如，在界面控制器类中。
+
+* *App components* 分组可以设置项目中需要的附加平台组件。自定义的组件在单独的<<add_ons,CUBA 扩展>>窗口中进行管理。
 
 * 如果需要更改应用程序服务的路径，请在 *Tomcat path* 字段中指定新路径。下一次执行 `gradlew deploy` 或 `gradlew start` 会将 Tomcat 安装到该位置。
 
@@ -31,36 +33,60 @@
 * *Available locales* 字段允许设置应用程序可用的 {main_man_url}/localization.html[本地化语言]。单击该字段旁边的按钮打开语言环境编辑界面。位于编辑界面窗口中的 *Locale select visible* 复选框控制 {main_man_url}/app_properties_reference.html#cuba.localeSelectVisible[cuba.localeSelectVisible] 应用程序属性的值。
 编辑界面还可以为 {main_man_url}/datatype.html[解析和格式化数据]定义新的或覆盖已有的格式化字符串。
 
-* *Groovy support* 复选框用于在应用程序中启用 Groovy 代码支持：比如，在界面控制器类中。
 --
-
-数据存储选项卡::
+[[project_properties_dependencies]]
+Dependencies 部分::
 +
 --
-*Data Stores* 选项卡显示项目的数据库连接。
 
-* 编辑界面的上半部分包含主数据存储的设置。
+*Dependencies* 部分展示并管理项目的第三方依赖（库）。
 
-** 可以在 *Database type* 字段中选择数据库服务的类型。下面的字段允许更改数据库 URL，并指定用户名、密码和可选的连接参数。
+image::features/project/dependencies.png[align="center"]
 
-** 连接参数的格式取决于所选的 DBMS。字符串中应在数据库名称和参数之间包含分隔符。例如，要指定 Microsoft SQL Server 2008+ 实例名称，请在字段中使用以下字符串：
+项目依赖在表格中按照模块分组展示，根据项目中选择模块的不同，一般有三个或更多的模块分组。
+如果类库是添加到 *global* 模块，则在整个项目的范围内全局能用，因为其他的 CUBA 项目模块依赖于 global 模块。
+
+表格中的 *Type* 列展示依赖的类型：
+
+* *compile* - 在编译和运行时使用的库
+* *provided* - 只在编译生产版本的应用程序时使用，不能包含在运行时的 classpath 中（比如 JDBC 驱动，Servlet API 的实现等。）
+* *runtime* - 只在运行时使用的库
+* *testCompile* - 在编译和测试时使用的库
+* *testRuntime* - 只在运行时测试使用的库
+
+*Text* 列以 Gradle 依赖字符串的格式展示库的坐标：*"group:name:version"*。
+
+依赖管理的操作在依赖列表的右侧显示：
+
+* *Add dependency* - 添加新的项目依赖。指定 Maven 依赖声明或 Gradle 依赖坐标。对话框会自动验证依赖声明是否正确。
+* *Remove dependency* - 从项目中移除依赖。
+* *Edit dependency* - 修改依赖声明的内容。
+
+参阅 {gradle_user_guide_url}/building_java_projects.html#sec:java_dependency_management_overview[Gradle 文档] 了解更多关于第三方依赖的内容。
+
+--
+
+添加新的第三方依赖::
 +
-[source]
-----
-;instanceName=myinstance
-----
+--
+添加新的第三方依赖需要以下步骤：
 
-** 如果启用了 *Custom database URL* 复选框，就可以指定自定义的数据库连接 URL。在这种情况下应提供 *Host* 和 *Database* 名称，因为它们在 `build.gradle` 中被单独使用。
+* 找到需要类库的 *Maven* 依赖声明或者 *Gradle dependency string* for the required library.
 
-** 对于 HSQLDB，Studio 本身提供数据库服务，并将数据库文件存储在 `build/hsqldb` 目录中。
+image::features/project/newdep-gradle.png[align="center"]
+image::features/project/newdep-maven.png[align="center"]
 
-* *Additional data stores* 面板包含项目中注册的其它数据存储列表。创建或编辑其它数据存储时，会显示 *Data Store* 对话框。对话框上包含以下字段：
+* 复制依赖声明至剪切板
+* 打开 *Project Properties* 对话框
+* 选择需要添加依赖的模块，或者用 *global* 模块声明项目全局依赖。
+* 点击 *Dependencies* 表格右边的 *+* 按钮打开 *Dependency Editor* 对话框。剪贴板的依赖声明会自动粘贴到这里。
+* 点击 *Dependency Editor* 对话框的 *OK* 按钮，如果有声明验证错误的话，请手动修复。
+* 点击 *CUBA Project Properties* 对话框的 *OK* 按钮应用修改。Studio 会在项目的构建脚本添加必须的声明，并刷新项目配置。
+* 现在可以在代码中使用库中的类了。
 
-** *Data store name* - 数据存储的名称。名称应该只包含字母、数字和下划线，并且应该不同于项目名称。
+[TIP]
+====
+Gradle *implementation 'a.b.c'* 依赖类型目前还不支持，请使用 *compile 'a.b.c'* 代替。
+====
 
-** *Data store type* - 数据存储的类型：`RdbmsStore` 或 `Custom`，有关详细信息请参阅文档。对于 `RdbmsStore`，应该设置如下字段。
-
-** *DataSource JNDI name* - Studio 基于数据存储的名称自动进行设置。
-
-** *Database type*、*URL* 等  - 数据库连接参数。
 --

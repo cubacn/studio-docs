@@ -3,6 +3,8 @@
 [[release_notes]]
 == 发行说明
 
+include::release_notes/relnotes-11.adoc[]
+
 版本 10::
 +
 --
@@ -54,6 +56,8 @@ image::release_notes/v-10-warn-namepattern.png[align="center"]
 .. 支持 REST API 扩展组件。
 
 . 所有解决的问题：
+
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%2010.1[Studio 10.1 解决的问题\]]
 
 ** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%2010.0[Studio 10.0 解决的问题\]]
 

@@ -1,0 +1,75 @@
+:sourcesdir: ../../../../../source
+
+[[add_ons]]
+==== 管理扩展插件
+扩展插件是公共发布的全栈类库，用来对项目进行扩展使用其提供的附加功能。
+可以参阅 {main_man_url}/app_components_recipes.html[CUBA 开发者手册] 了解更多关于扩展和应用程序组件的知识。
+
+*CUBA Add-ons* 对话框可以用来管理 CUBA 项目中引入的扩展插件。
+可以通过下面的方式打开这个对话框：
+
+* 在 CUBA 项目树双击 *Project* -> *Add-ons* 
+* 从主菜单项： *CUBA* -> *Marketplace...*
+
+该对话框有三个标签页： *Marketplace*、*Installed* 和 *Updates*。
+
+Marketplace 标签页::
++
+--
+Marketplace 标签页展示发布的扩展中那些能与项目 *兼容* 的扩展插件。
+
+image::features/project/addons-market-small.png[align="center"]
+
+扩展按照类型分组。可以用过滤器查找需要的扩展，比如，"email" 或 "category:Translation"。
+
+点击扩展的标题可以跳转到扩展的详情页，包括概览、兼容性、许可等信息：
+
+image::features/project/addon-details.png[align="center"]
+
+如果需要安装扩展，可以在需要的扩展下点击 *Install*，然后点击 *Apply* 或 *Apply & Close* 按钮。
+在确认之后，Studio 会对项目的构建脚本和配置文件做必要的修改、下载新的库并刷新 Gradle 项目的配置。
+
+--
+
+使用坐标安装扩展::
++
+--
+扩展的坐标其实就是 Gradle 的依赖字符串，即 "com.mycompany.cuba-addons:myaddon:0.1.5" 类型的串。这个字符串可以在 CUBA 平台的网站上发布或者扩展插件的作者自己发布。
+如果该需要使用坐标（或使用 Gradle 依赖字符串）进行安装，点击 *Updates* 标签页标题右边的齿轮图标，选择 *Install by coordinates*：
+
+image::features/project/addon-by-coords.png[align="center"]
+
+--
+
+Installed 标签页::
++
+--
+*Installed* 标签页展示已经安装的关联到当前项目的扩展插件。
+
+image::features/project/addons-installed.png[align="center"]
+
+已安装的扩展插件按照两种分类进行分组。
+*Marketplace Add-Ons* 是从 CUBA 市场安装的扩展。
+*Custom Add-Ons* 是由第三方开发、发布在第三方仓库或者 Maven 本地仓库的扩展。
+
+如果要在项目中移除关联的扩展，可以选中相应的扩展点击 *Delete*，或者右键点击扩展，选择 *Uninstall*。
+然后在弹出框选择 *Apply*。Studio 会从项目的依赖移除该扩展并更新项目的配置。
+
+--
+
+Updates 标签页::
++
+--
+Studio 会自动检查项目中引入的扩展是否需要升级。
+*Updates* 标签页显示可以升级的扩展的相关信息。
+
+image::features/project/addons-updates.png[align="center"]
+
+如果要升级扩展，点击 *Update* 按钮，然后点击 *Apply* 或 *Apply & Close* 按钮。
+Studio 会自动升级依赖、下载需要的类库并更新项目配置。
+
+另外，在打开项目之后，也会在界面的右下角显示可用的升级信息：
+
+image::features/project/addon-update-notification.png[align="center"]
+
+--
