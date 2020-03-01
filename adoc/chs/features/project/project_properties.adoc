@@ -1,4 +1,4 @@
-:sourcesdir: ../../../../../source
+:sourcesdir: ../../../../source
 
 [[project_properties]]
 ==== 项目属性编辑界面
@@ -10,13 +10,17 @@
 --
 *Main* 选项卡显示基本设置。
 
-* *Repositories* 显示当前在项目中使用的仓库。Studio 扫描这些仓库以寻找可用的平台版本。使用该字段旁边的按钮配置对仓库的访问。有关详细信息，请参阅 {main_man_url}/access_to_repo.html[文档]。还可以在 `build.gradle` 中手动注册包含应用程序组件的其它仓库，并且仓库数量不受限制。
+* *Module prefix* 字段显示项目模块的名称前缀。后面加上模块的名称决定了项目攻坚的名称，比如 `sales-global` 模块装配成 `sales-global-0.1.jar` 工件。如果要重命名模块，可以修改模块名前缀。例如，使用 `wages` 模块名前缀的基本 CUBA 项目有 `wages-global`、`wages-core` 和 `wages-web` 模块。
+
+* *Artifact version* 字段可以修改项目工件的版本。如果是 final build，可以不勾选 *Snapshot*，snapshot（快照版本）是可以被同名构建覆盖的版本。
+
+* *Repositories* 表格显示当前在项目中使用的仓库。Studio 扫描这些仓库以寻找可用的平台版本。使用该字段旁边的按钮配置对仓库的访问。有关详细信息，请参阅 {main_man_url}/access_to_repo.html[文档]。还可以在 `build.gradle` 中手动注册包含应用程序组件的其它仓库，并且仓库数量不受限制。
 
 * *Platform version* 选择平台的版本。如果选择了较新版本，则会根据需要决定是否会执行版本的自动迁移。
 
-* *Groovy support* 复选框可以在应用程序内启用 Groovy 代码，比如，在界面控制器类中。
+* *Show unstable versions* 复选框可以选择显示不稳定的 CUBA 版本，是指带有 `BETA` 或 `SNAPSHOT` 的版本。
 
-* *App components* 分组可以设置项目中需要的附加平台组件。自定义的组件在单独的<<add_ons,CUBA 扩展>>窗口中进行管理。
+* *Groovy support* 复选框可以在应用程序内启用 Groovy 代码，比如，在界面控制器类中。
 
 * 如果需要更改应用程序服务的路径，请在 *Tomcat path* 字段中指定新路径。下一次执行 `gradlew deploy` 或 `gradlew start` 会将 Tomcat 安装到该位置。
 
@@ -35,11 +39,10 @@
 
 --
 [[project_properties_dependencies]]
-Dependencies 部分::
-+
+==== 项目依赖
 --
 
-*Dependencies* 部分展示并管理项目的第三方依赖（库）。
+*Project Properties* 对话框的 *Dependencies* 部分展示并管理项目的第三方依赖（库）。
 
 image::features/project/dependencies.png[align="center"]
 
@@ -89,4 +92,27 @@ image::features/project/newdep-maven.png[align="center"]
 Gradle *implementation 'a.b.c'* 依赖类型目前还不支持，请使用 *compile 'a.b.c'* 代替。
 ====
 
+--
+
+[[project_properties_jar_dependency]]
+添加 JAR 文件依赖::
++
+--
+有时您需要添加一个 JAR 文件作为项目的依赖，但是此文件不在任何公共的或内部的 Maven 仓库。此时，需要手动修改 build.gradle 脚本文件。
+
+* 在项目的根目录创建 `lib` 文件夹；
+* 将 JAR 文件复制到该文件夹，比如， `<my-project>/lib/custom-lib.jar`
+* 打开 Gradle 构建脚本：CUBA 项目树 -> *Build Script* -> *build.gradle*；
+* 修改 build.gradle 文件，为 `repositories` 部分添加 `flatDir` ：
+[source]
+----
+include::{sourcesdir}/features/project/jar-repository.txt[]
+----
+* 修改 build.gradle 的 `configure(globalModule)` 部分，添加指定的 JAR：
+[source]
+----
+include::{sourcesdir}/features/project/jar-dependency.txt[]
+----
+* 刷新 Gradle 项目配置；*Gradle* 工具窗口 -> *Reimport All Gradle Projects*；
+* 现在可以在代码中使用该库的类。
 --

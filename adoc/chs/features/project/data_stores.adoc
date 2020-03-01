@@ -3,7 +3,7 @@
 [[data_stores]]
 ==== 管理数据存储
 
-主数据存储属性::
+主数据存储::
 +
 --
 *Main Data Store Properties* 窗口展示主数据存储的配置。
@@ -11,27 +11,44 @@
 
 * 在 CUBA 项目树双击 *Project* -> *Data Stores* -> *Main Data Store*。
 * 从主菜单点击： *CUBA* -> *Main Data Store Settings...*。
+--
 
-可以在 *Database type* 字段选择数据库服务类型。下面的字段可以修改数据库的 URL 并指定用户名、密码和其他可选的连接参数。
+[[data_stores_properties]]
+数据存储属性::
++
+--
+下列属性可以为主数据存储和附加数据存储配置：
 
-连接参数的格式依赖于所选的 DBMS。连接字符串应当包含一个分隔符，用来分隔数据库名称和参数。
-比如，设置一个 Microsoft SQL Server 2008+ 实例名时，可以使用下面的字符串：
-
+* *Define JDBC DataSource in* - 决定使用哪个组件创建数据库连接池（需要项目基于 CUBA 7.2+）。可选值为：*Application* 和 *JNDI*。
+** *Application* - 通过 CUBA 平台使用 https://github.com/brettwooldridge/HikariCP[HikariCP] 库创建和管理连接池。推荐使用该模式。
+** *JNDI* - 通过应用程序服务器创建连接池并放入 JNDI。CUBA 应用程序使用 JNDI 名称从 JNDI registry 获取数据源。
+* *Database type* - {main_man_url}/dbms_types.html[数据库服务的类型]。Studio 开箱支持 *PostgreSQL*、*Microsoft SQL Server*、*Oracle*、*MySQL*、*MariaDB*、*Amazon RedShift* 以及 *HSQLDB*。如果需要，也可以集成其他数据库，参阅 <<custom_db, 本章节>> 了解细节。
+* *Database URL* - 指定主机、端口以及数据库名称。
+* *Connection params* - 指定其他连接参数。连接参数的格式依赖所选的数据库。字符串需要在数据库名称和参数之间包含一个分隔符。
+比如，指定一个 Microsoft SQL Server 2008+ 实例名称，在该字段使用下列字符串：
++
 [source]
 ----
 ;instanceName=myinstance
 ----
++
+可以使用 *Connection params* 字段旁边的 “铅笔” 按钮方便的输入连接参数。此时，Studio 会使用特定数据库的分隔符将参数组成连接串。
+* *Custom database URL* - 指定一个自定义的数据库连接 URL。这里需要提供 *Host* 和 *Database* 名称，单独用于创建数据库。
+* *Database user* 和 *Password* - 数据库连接凭证。
+* *Integrated Security* - 当连接至 *Microsoft SQL Server 2012+* 数据库时，启用相应的验证选项。
 
-如果选中了 *Custom database URL* 复选框，则可以指定自定义的数据库连接 URL。
-此时需要提供 *Host* 和 *Database* 的名称，因为在 `build.gradle` 里面是分开使用的。
+如果是 HSQLDB，Studio 本身会提供数据库服务，并将数据文件保存在 `build/hsqldb` 文件夹。
 
-如果是 HSQLDB 的话，Studio 自己会提供数据库服务并且将数据库文件存储在 `build/hsqldb` 目录。
+image::features/project/add-store-settings.png[align="center"]
+
 --
 
+[[data_stores_additional]]
 附加数据存储::
++
 --
 
-如需在项目中创建 {main_man_url}//data_store.html[附加数据存储]，在 CUBA 项目树右键点击 *Data Stores*，选择 *New* -> *Additional Data Store*。
+如需在项目中创建 {main_man_url}/data_store.html[附加数据存储]，在 CUBA 项目树右键点击 *Data Stores*，选择 *New* -> *Additional Data Store*。
 项目中注册的附加数据存储作为 *Data Stores* 部分的子项展示：
 
 image::features/project/additional-stores.png[align="center"]
@@ -45,10 +62,30 @@ image::features/project/additional-stores.png[align="center"]
 创建或编辑附加数据存储时，会显示 *Data Store* 对话框，其带有以下字段：
 
 * *Data store name* - 数据存储的名称。只能包含字母和下划线，并且不能与项目名称相同。
-* *Data store type* - 数据存储的类型：`RdbmsStore` 或 `Custom`，参阅 {main_man_url}//data_store.html[文档] 了解细节。下面两个字段是在选择 `RdbmsStore` 时需要设置。
+* *Data store type* - 数据存储的类型：`RdbmsStore` 或 `Custom`，参阅 {main_man_url}/data_store.html[文档] 了解细节。
 * *DataSource JNDI name* - Studio 基于数据存储的名称自动设置。
-* *Database type*、*URL* 等 - 数据库连接参数。
+* 对于 `RdbmsStore`，需要指定下面描述的附加的属性。
 
-image::features/project/add-store-settings.png[align="center"]
+--
+
+[[data_stores_db_scripts]]
+数据库初始化和更新脚本::
++
+--
+*主数据存储* 可以使用 {main_man_url}/db_scripts.html[数据库初始化和更新脚本] ，这些脚本显示在数据存储之下：
+
+image::features/project/db-scripts.png[align="center"]
+
+* *Init* 脚本包含重新创建数据库的 DDL 和 DML 语句，建立数据库以匹配当前的数据模型状态。
+* *Update* 脚本包含更新数据库的脚本，可以对之前任意状态的数据库进行更新，以匹配当前的数据模型状态。
+
+Studio 会根据数据模型的更改自动维护初始化和更新脚本，阅读 <<database_migration>> 部分了解更多细节。
+
+如果需要，也可以创建附加的数据库脚本。只需在 CUBA 项目树的 *Data Stores* -> *Main Data Store* 部分使用下面的操作：
+
+* init -> 右键菜单 -> *New* -> *Database init script*
+* update -> 右键菜单 -> *New* -> *Database update script*
+
+image::features/project/new-update-script.png[align="center"]
 
 --

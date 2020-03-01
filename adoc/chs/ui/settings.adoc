@@ -3,7 +3,8 @@
 [[settings]]
 === CUBA 设置
 
-如果单击 *CUBA > Settings* 主菜单项，将看到使用键字 *cuba* 过滤后的 IDE 设置窗口。在 *Languages & Frameworks* 下找到 *CUBA* 部分。
+--
+如果单击 *CUBA > Settings* 主菜单项，可以看到在 IDE 的设置中选中了 CUBA 部分。
 
 *CUBA* 部分包含对所有在 Studio 实例中打开的项目都通用的设置。
 
@@ -13,16 +14,16 @@
 
 * *Use embedded browser to open application* - 如果选中该选项，则双击 *Runs At* 项目树中的应用程序 URL 时将使用内嵌 Web 浏览器打开项目地址。
 
-* *Visual designer theme* - 可视化设计工具的主题。使用 `Autodetect` 将根据 IDE 主题自动设置。
+* *Visual designer and embedded browser zoom percentage* - 界面设计器的布局预览默认缩放。也可以通过预览面板顶部的一个操作按钮稍后调整。
 
-* *Visual designer zoom* - 可视化设计工具的默认缩放。在具体的设计界面中可以通过右键菜单进行调整。
-
-* *Old Studio integration enabled* - 如果要将此 IDE 实例与旧的 Studio SE 或 Studio Browser Edition 集成，选中此复选框。这样就可以在新的 IDE 中打开旧 Studio 的项目（这样不需要单独安装其它版本的 IDEA 了）。
+* *Enable integration* - 如果要将此 IDE 实例与旧的 Studio SE 或 Studio Browser Edition 集成，选中此复选框。这样就可以在新的 IDE 中打开旧 Studio 的项目。另外，这个复选框也会启用与前端生成器命令行工具的通信。
 
 * *Listening port* - 用于集成旧 Studio 的端口。确保这个值与旧 Studio 的 *IDE Port* 字段中指定的值相同。
+--
 
-* *Enable transaction block folding*  如果选中，Java 代码编辑器将折叠用于事务控制的旧式 `try-finally` 块。
-
+项目设置::
++
+--
 下一级的 *Project settings* 部分包含当前打开的项目的设置。所有非默认值都存储在项目根目录的 `studio-intellij.xml` 文件中，可以将其添加到版本控制系统，以便在团队中的所有开发人员之间共享项目设置。
 
 * *Check compatibility between data model and database scheme* - 在启动应用程序服务时，如果数据模型的当前状态与数据库架构不一致时显示警告信息。
@@ -45,7 +46,7 @@
 
 * *Default parent package name for screens* - 当根据与实体无关的模板生成通用 UI 时，可以在这里指定使用的默认包名替代"screens"(默认)。如果模板关联了实体，还会在包之前添加实体名称。例如，如果将此字段设置为"ui"并创建一个空白界面，则包的默认值为 `com.company.sample.web.ui`。
 
-* *Default access modifier* - 设置 Studio 在生成实体字段时使用的默认字段修饰符。
+* *Default entity attribute access modifier* - 设置 Studio 在生成实体字段时使用的默认字段修饰符。
 
 * *Generate entity name with underscore symbol* - 如果选择，实体名称将具有 `namespace_ClassName` 格式，例如 `sales_Customer`。否则它将是 `namespace$ClassName`。
 
@@ -53,8 +54,18 @@
 
 * *Instant hot deploy* - 此复选框允许关闭热部署。如果启用了热部署，则 Studio 会在应用或保存对视图、界面、消息或主菜单的更改时动态更新已部署的 Web 应用程序的 UI。
 
+* *Scaffolding language* - 在支持 Kotlin 的项目中选择使用何种编程语言生成代码。可选项为：*Kotlin*、*Java* 和 *Always Ask*。如果您的项目混合了 Java / Kotlin 的内容，然后您想控制每次生成实体、服务、界面的脚手架代码，可以选择 *Always Ask*。该选项只有在项目支持 Kotlin 时才会出现。
+
+* *Hot deploy compiled classes* - 为基于 CUBA 7.2+ 的项目启用新的热部署机制。旧的机制需要复制 Java 源码到 Tomcat 配置目录并使用自定义的类加载器编译这些文件。新的机制会在 IDE 端编译这些文件，因此能热部署 Kotlin 代码。如果在使用新的热部署机制中遇到问题，可以尝试关闭该设置。
+
 * *Hot Deploy Settings* - 打开对话框来自定义热部署目录。例如，可能希望将 Web 门户的 HTML 文件和 JavaScript 文件所在的文件夹添加为部署目录。当更改这些文件时，Studio 会将它们复制到 Tomcat 中的各自对应的目录。因此，只需重新加载 Web 门户页面即可查看更改。
+
+* *Screen Generation Settings* - 影响界面生成的选项。这些设置在 *New* -> *Screen...* 向导中使用。可用设置有：
+** *Default form field width* - 实体编辑器使用
+** *Keep editor actions at the bottom* - 实体编辑器以“全屏”模式打开时使用。
+** *Force modal open type for editors* - 实体编辑器以“对话框”模式打开时使用。
 
 * *Fold messages in* - 允许控制界面描述和界面控制器中的消息折叠。选中的话，消息键将替换为相应消息包中的实际值。
 
 * *Message folding locale* - 折叠(folding)消息时要使用的本地化消息文件。
+--

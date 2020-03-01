@@ -3,6 +3,10 @@
 [[release_notes]]
 == 发行说明
 
+include::release_notes/relnotes-13.adoc[]
+
+include::release_notes/relnotes-12.adoc[]
+
 include::release_notes/relnotes-11.adoc[]
 
 版本 10::

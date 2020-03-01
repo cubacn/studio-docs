@@ -2,11 +2,11 @@
 
 [[preface]]
 == 前言
-
+--
 本手册提供了 CUBA Studio IDE 以及其功能的参考信息，CUBA Studio IDE 有助于提高基于 CUBA 框架的应用程序的开发效率。
 
 
-CUBA Studio 基于开源的 https://www.jetbrains.com/opensource/idea/[IntelliJ IDEA Platform]，并通过以下 CUBA 特有的功能对其进行扩展：
+CUBA Studio 基于开源的 https://www.jetbrains.com/opensource/idea/[IntelliJ Platform]，并通过以下 CUBA 特有的功能对其进行扩展：
 
 * 创建 Gradle 构建脚本的脚手架代码。
 
@@ -24,4 +24,5 @@ CUBA Studio 基于开源的 https://www.jetbrains.com/opensource/idea/[IntelliJ 
 
 * 使用 CUBA 框架和扩展的版本升级更加容易。
 
-
+IntelliJ Platform 为 CUBA Studio 提供了强大的基础。包含很多可以提升 CUBA 开发者生产力的功能，比如非常人性化的用户界面，智能代码补齐，安全的代码重构，后台代码检查，内置的版本控制以及对 Gradle 的集成。如果您之前没有使用过 IntelliJ IDEA，我们强烈推荐您访问其网站的 https://www.jetbrains.com/idea/documentation/[学习 & 支持 ] 部分，快速了解其基本功能。
+--

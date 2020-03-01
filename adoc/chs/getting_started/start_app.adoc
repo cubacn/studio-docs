@@ -3,6 +3,7 @@
 [[start_app]]
 === 启用应用程序
 
+--
 当 Studio 导入了一个 CUBA 项目之后，会创建为 CUBA 特定修改的 Run/Debug 配置，目的是用来运行部署了应用的本地 Tomcat 服务。所以为了运行应用程序并能用调试器进行连接，只需要在主工具栏点击选中的 `CUBA Application` 配置边上的 debug 按钮即可。
 
 image::getting_started/app_start_1.png[align="center"]
@@ -28,3 +29,24 @@ image::getting_started/app_start_4.png[align="center"]
 image::getting_started/cuba_menu_appserver.png[align="center"]
 
 当从 *Start Application Server* 主菜单命令启动服务时，在 Windows 系统能看到一个控制台窗口显示服务器日志。在 Linux 或者 macOS 系统，不会显示控制台，但是可以在 *Terminal* 工具窗口通过执行 `tail -f deploy/tomcat/logs/app.log` 命令查看服务日志。*Stop Application Server* 命令通过发送 SHUTDOWN 信号给停止端口来停止 Tomcat 服务，停止端口是通过项目属性设置（默认是 8005）。
+--
+
+运行/调试配置::
++
+--
+Tomcat 服务中 *CUBA Application* 运行/调试的配置是能调整的。使用下列方式打开配置对话框：
+
+* 在工具栏中点击 *CUBA Application* 元素然后在菜单中选择 *Edit Configurations...*。
+* 或使用主菜单 -> *Run* -> *Edit Configurations...*
+
+image::getting_started/run_configuration_toolbar.png[align="center"]
+
+会弹出 *Run/Debug Configuration* 对话框。您或许希望调整下列配置：
+
+* *JRE* - 启动调试 Tomcat 服务的 Java 运行环境。可以选择和项目 JDK 不同的 JRE，但是需要考虑二进制文件的兼容性需求（比如使用 Java 11 编译的应用程序不能在 Java 8 运行）。
+* *Command line arguments* - 传递给调试服务的 JVM 参数。例如，指定 `-Xmx1500m` 提高服务使用的最大内存数量。
+* *Environment Variables* - 调试服务进程可以使用的环境变量。
+
+image::getting_started/run_configuration_settings.png[align="center"]
+
+--

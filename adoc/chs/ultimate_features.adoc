@@ -1,0 +1,22 @@
+:sourcesdir: ../../source
+
+[[ultimate_features]]
+== 与 IntelliJ IDEA 终极版集成
+--
+IntelliJ IDEA Ultimate Edition（终极版）是商业 IDE，包含了很多对开发 CUBA 应用程序有用的附加功能：支持 CSS、JavaScript、JPA、Spring、Docker、数据库访问等等。
+
+在终极版中，CUBA Studio 也可以与普通插件一样进行安装。并且能集成一些终极版的功能提升开发体验。
+--
+
+=== 关闭有冲突的功能
+--
+有些 Studio 的功能会跟 Intellij 终极版或者第三方插件的功能冲突。
+
+比如，为了避免 CUBA Studio 提供的侧边栏图标和 IDEA 终极版中 Spring 插件图标的冲突，可以按照下面的步骤：
+
+* 在 IDEA 菜单中选择 *Settings > Editor > General > Gutter Icons*，
+* 反选 *Injection points* 和 *Producers for Disposer methods* 选项，
+* 应用更改。
+--
+
+include::ultimate_features/jpa_plugin.adoc[]

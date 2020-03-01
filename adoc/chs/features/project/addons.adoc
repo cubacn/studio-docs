@@ -35,7 +35,7 @@ image::features/project/addon-details.png[align="center"]
 +
 --
 扩展的坐标其实就是 Gradle 的依赖字符串，即 "com.mycompany.cuba-addons:myaddon:0.1.5" 类型的串。这个字符串可以在 CUBA 平台的网站上发布或者扩展插件的作者自己发布。
-如果该需要使用坐标（或使用 Gradle 依赖字符串）进行安装，点击 *Updates* 标签页标题右边的齿轮图标，选择 *Install by coordinates*：
+如果该需要使用坐标（或使用 Gradle 依赖字符串）进行安装，点击 *Updates* 标签页标题右边的 "Install Add-on Manually" 图标：
 
 image::features/project/addon-by-coords.png[align="center"]
 

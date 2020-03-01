@@ -3,12 +3,151 @@
 [[screen_descriptor]]
 ==== 使用界面描述
 
-{main_man_url}/screen_descriptors.html[界面描述] 编辑器底部包含两个选项卡：*Text* 和 *Designer*。在 *Text* 选项卡上，可以直接编辑 XML，而 *Designer* 选项卡包含一个界面布局的可视化编辑器。
+{main_man_url}/screen_descriptors.html[界面 XML 描述] 编辑器与 *Screen Designer* 集成在一起。界面设计器展示一组操作面板和工具窗口，可以用来开发界面的布局并以所见即所得的形势设置 UI 组件的属性。您可以直接编辑 XML 或使用设计器的面板生成代码。
 
-image::features/generic_ui/xml_descriptor.png[align="center"]
+*Screen Designer* 由下列元素组成：
 
-可以使用代码编辑器边栏上的标记从界面描述切换到相应的界面控制器，或者在项目树中选择界面描述，然后单击右键菜单中的 *Go to controller*。
+* *Source code editor* - 展示并编辑 XML 源码。
+* *Top actions panel* - 提供一些便于访问的操作。
+* *Layout preview panel* - 展示交互式的界面布局架构。
+* *Component Hierarchy* - 以层级树的形势展示界面元素。
+* *Component Palette* - 展示可以添加到当前界面的组件。
+* *Component Inspector* - 展示并编辑组件的属性和事件处理器。
 
+[TIP]
+====
+界面设计器面板和工具窗口只有购买了 CUBA Studio 商业订阅才能使用。
+====
+
+image::features/generic_ui/screen_designer.png[align="center"]
+
+[[screen_descriptor_actions_panel]]
+顶部操作面板::
++
+--
+操作面板位于代码编辑器的顶部。提供下列操作的访问：
+
+* *Controller* - 导航至界面控制器。
+* *<entity class name>* - 如果当前界面是实体浏览器或者编辑器时会显示。可以导航至关联的实体。
+
+也可以用侧边栏的标记在界面描述和其控制器之间切换。
+--
+
+[[screen_descriptor_tool_windows]]
+工具窗口::
++
+--
+*Component Hierarchy*、*Component Palette* 和 *Component Inspector* 面板是 IDE 中独立的工具面板。当在编辑器打开界面描述时，会自动打开这些工具窗口。如果在编辑器中切换界面描述文件，工具窗口的内容也会同步更新。有时候，当打开其他工具窗口时（比如 Gradle、Persistence 等），设计器的某些窗口会被隐藏，可以通过点击 IDE 窗口左右的相应按钮重新打开。
+
+保留在左下角展示 *Component Inspector* 是为了满足熟悉之前布局的开发者们。如果需要将该面板移至右侧，点击面板标题的 *Move to Right Bottom* 即可。
+
+设计器面板会在编辑 XML 代码时激活。熟练开发者们通过编辑 XML 源码切换和修改界面描述，他们现在也能获得界面设计器的编辑功能帮助。可以从工具箱拖拽新组件至层级树，当编辑器只显示源码时，也可以在左下角的探查面板修改组件的排序和编辑组件属性。源码会直接同步所有改动。
+--
+
+[[screen_descriptor_layout_preview]]
+布局预览面板::
++
+--
+*Layout Preview - 布局预览面板* 展示交互式的界面布局架构。与界面描述的源码编辑面板共享编辑器的空间。现在在界面描述的右上部添加了四个按钮用于切换界面预览模式：
+
+* *Editor only* - 在编辑器只显示源码。
+* *Editor and Preview* - 编辑器空间分割，包含源码和预览。
+* *Preview only* - 只显示预览。
+* *Preview in Window* - 源码在编辑器展示，但是预览通过单独的窗口展示，可以将预览窗口移至其他显示设备。
+
+image::features/generic_ui/layout_preview_modes.png[align="center"]
+
+面板在右上角有一些控制按钮：
+
+image::features/generic_ui/layout_preview_controls.png[align="center"]
+
+* *100% x 100%* 下拉框可以选择固定的 *画布大小*。画布的大小可以比预览面板大，此时会添加额外的滚动条。例如，如果在开发一个复杂的界面，带有很多控制组件，如果想预览，可以选择 *1920 x 1080* 画布大小，然后查看布局在大屏上如何展示。
+* *Refresh* 按钮重新加载预览界面的内容。
+* *Zoom In*、*Zoom Out* 和 *Zoom Reset* 按钮更改预览界面的缩放。
+* 最右边的按钮展示自动界面布局问题检测的结果。移动光标至这个图标可以看到发现的问题。
+
+在 *Layout Preview* 面板中，也可以排布组件以达到需求的布局。组件可以用控制进行缩放和对齐：
+
+* 水平延展，
+* 垂直延展，
+* 水平、垂直对齐组件。
+
+image::features/generic_ui/layout_component_controls.png[align="center"]
+
+--
+
+[[screen_descriptor_palette]]
+组件工具箱::
++
+--
+*Component Palette* 工具窗口展示在 IDE 的右下角。显示可用的界面组件：
+
+* Containers - 容器；
+* Components - 组件；
+* Data Components - 数据组件：containers - 数据容器 和 loaders - 数据加载器；
+* Non-visual - 非可视化组件：actions - 操作、 dialog mode settings - 对话框模式设置，timers - 定时器以及其他辅助的界面元素；
+* Main window - 主窗口: 主界面特定的组件。
+
+可以通过在搜索框输入名称的方式在工具箱搜素组件。
+
+要在布局中添加一个组件，可以直接从工具箱拖拽组件至 *Component Hierarchy* 面板。
+
+在工具箱右键点击组件，可以使用下列操作：
+
+* *Add to Design* - 添加选中的组件至界面，放置位置通过在层级树中选中元素决定。
+* *CUBA Documentation* - 打开组件在开发者手册中的文档页。
+
+image::features/generic_ui/component_palette.png[align="center"]
+--
+
+[[screen_descriptor_hierarchy]]
+组件层级树::
++
+--
+*Component Hierarchy* 工具窗口展示在 IDE 的右上角。以树的方式展示布局中的组件结构。
+
+可用拖拽的方式修改树中元素的位置。
+
+右键点击层级树中的元素，可以使用下列操作：
+
+* *Convert* 将组件转换为类似的其他组件。
+* *Wrap* 将组件放入建议的容器中。
+* *Go to XML* - 切换至源码中相应的 XML 标签。
+* *Inject* 将元素注入界面控制器或者导航至已经注入的声明。
+* *Delete*、*Copy*、*Cut* *Paste* 删除、复制、剪切、粘贴组件。
+* *CUBA Documentation* 打开选中组件的文档。
+
+image::features/generic_ui/component_hierarchy.png[align="center"]
+
+--
+
+[[screen_descriptor_inspector]]
+组件探查::
++
+--
+*Component Inspector* 工具窗口显示在 IDE 的左下角。展示并编辑选中组件的属性：
+
+* *Properties* 面板展示可视化组件的属性。
+* *Handlers* 面板展示可以与选中组件关联的事件监听器和组件委托。如要生成所需的处理器方法，只需双击相应的条目。
+
+可以在搜索字段中输入文字快速定位属性：
+
+image::features/generic_ui/component_inspector.png[align="center"]
+
+对于某些选中的元素会显示 *+ Add* 按钮，提供添加子元素的一个快捷方法，比如添加表格操作、列、表单字段。如果所选组件是：
+
+* `Table`、`Grid` 或其操作和列之一 - 可用：*Add* -> *Column*, *Add* -> *Group*, *Add* -> *Action* 
+* `Form` 或其列和字段之一 - 可用：*Add* -> *Column*, *Add* -> *Field*
+* `DataLoadCoordinator` - 可用：*Add* -> *onScreenEvent trigger* 以及其它触发器
+
+image::features/generic_ui/component_inspector_add_button.png[align="center"]
+
+--
+
+[[screen_descriptor_inspections]]
+源码检查::
++
+--
 Studio 会检查界面布局是否存在错误和不一致，并且检查内部和外部引用。出现下列情况，会用警告或高亮显示 XML 元素的方式进行提醒：
 
 * 由于 XML 错误，无法组装界面布局。
@@ -23,38 +162,33 @@ Studio 会检查界面布局是否存在错误和不一致，并且检查内部�
 * `messagesPack` 属性指定的值不是一个有效的包，这个包要至少包含一个 `messages_xx.properties` 文件。
 * 过时的 XSD 引用。
 * `id` 值在界面内不是唯一的。
+* 其它问题。
 
-可以在 *Settings* 窗口中配置检查器（*CUBA > Settings > Editor > Inspections*）。
+可以在 *Settings* 窗口中配置 CUBA 检查器（*CUBA > Settings > Editor > Inspections*）。
+--
 
-Studio 也能加速界面组件的开发。使用 Alt+Insert (Cmd+N) 快捷键打开特定 UI 和数据组件的相关功能。比如，需要在 {main_man_url}/gui_Form.html[Form] 组件添加一个新字段，可以将光标移动到 `form` 元素内然后按照下面的方式之一添加字段：
+[[screen_descriptor_intentions]]
+源码意图和生成菜单::
++
+--
+意图操作（Intention action）是一个上下文敏感的操作，开发者可以在源码编辑器通过按下 Alt+Enter（Option+Enter）调用。意图操作可以帮助代码重构、代码生成、导航和其他任务。可以在 https://www.jetbrains.com/help/idea/intention-actions.html 阅读更多关于意图操作的内容。
 
-* 按下 Alt+Insert (Cmd+N)，选择 *Add field*，然后选择属性和字段标签，
+*Generate - 自动生成* 菜单包含上下文敏感的操作，可以帮助生成各种代码结构。可以通过按下 Alt+Insert（Cmd+N）调出。参阅 https://www.jetbrains.com/help/idea/generating-code.html 了解更多。
+
+Studio 中包含的意图和生成菜单条目提高了使用界面组件的效率。使用 Alt+Insert（Cmd+N）和 Alt+Enter（Option+Enter）查看对于特定 UI 和数据组件的功能。
+
+. 例如，要为 {main_man_url}/gui_Form.html[表单] 组件添加一个新字段，可以将光标移入 `form` 元素然后执行下列操作的一项：
++
+* 按下 Alt+Insert (Cmd+N)，选择 *Add field*，然后选择 `property` 属性的值，
 +
 image::features/generic_ui/gui_Form_add.png[align="center"]
 
-* 输入 `field` 然后按下 TAB 键，然后选择属性和字段标签。
+* 输入 `field` 然后按下 TAB 键，然后选择 `property` 属性的值。
 +
 image::features/generic_ui/gui_Form_add_tab.png[align="center"]
 
-*Designer* 选项卡显示可视化设计器，允许以 WYSIWYG 方式开发界面布局和设置 UI 组件属性。
+. 另一个例子是为一个组件添加新的本地化语言标题。可以在源码中输入还未创建的消息键值。则引用的元素会高亮红色。然后按下 Alt+Enter（Option+Enter）并选择 *Create message in the message bundle*：
++
+image::features/generic_ui/intention_add_localized_message.png[align="center"]
+--
 
-image::features/generic_ui/xml_descriptor_2.png[align="center"]
-
-设计界面工作区分为四个面板：
-
-* *Canvas* 是工作区，可以在其中按所需的布局排列组件。可以使用控制工具调整组件的大小和对齐：
-** 水平扩展，
-** 垂直扩展，
-** 垂直/水平对齐组件。
-
-* *Palette* 面板显示可用的界面组件集合：
-** 容器；
-** 组件；
-** 数据组件：容器和加载器;
-** 非可视化组件：操作、对话框模式设置、计时器。
-
-要将组件添加到布局，请将其从组件面板(palette)拖放到画布或组件树(hierarchy)面板上。
-
-* *Hierarchy* 面板显示添加到布局的组件树。可以使用拖放重新排列树的元素，因为有时这比在画布(Canvas)上执行相同操作更方便。可以使用右键菜单来删除、复制、剪切或粘贴组件树中的元素。
-
-* *Properties* 面板显示可视化组件的属性。

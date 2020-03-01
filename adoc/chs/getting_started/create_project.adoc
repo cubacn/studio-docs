@@ -5,27 +5,37 @@
 
 CUBA Studio 提供了一种从零开始创建新 CUBA 项目的简单方法。只需使用 *New Project* 向导，然后按照以下步骤操作：
 
-. 在 *Welcome to CUBA Studio* 窗口中，单击 *Create New Project*.。
+. 在 *Welcome to CUBA Studio* 窗口中，单击 *Create New Project* 或使用主菜单 *File* -> *New* -> *Project*。
 
 . 选择 *CUBA Project*.
 
+. 指定 *Project namespace*，该命名空间将会作为实体或者数据库表的前缀。命名空间只能由拉丁字母组成，并且尽可能短。*这里需要仔细考虑该名称*，因为之后如果想修改会需要很多手动操作。
+
+. 如果需要，可以修改 *Root package*。这是 Java 类的根包名。也可以之后再调整，但是项目创建阶段生成的类还会使用当前的包名。
+
+. 如果需要，可以修改 *Module prefix*。CUBA 项目的模块名称会添加这个作为前缀。模块名前缀可以稍后修改。
+
 . 在 *Project SDK* 字段，选择对应环境中设置 `JAVA_HOME` 的 JDK。如果看到 `<No SDK>` 这样的值，点击 *New* 然后选择 JDK 安装的目录，比如在 Windows 是 `++C:\Java\jdk8u202-b08++`，macOS 是 `/Library/Java/JavaVirtualMachines/jdk8u202-b08/Contents/Home`。
 
-. 选择默认仓库配置，或为项目 {main_man_url}/access_to_repo.html[自定义] 仓库配置，然后单击 *Next*。
+. 选择默认仓库配置，或为项目 {main_man_url}/access_to_repo.html[自定义] 仓库配置。
 
-. 在 *Project name* 字段中指定新项目的名称。名称应仅包含拉丁字母、数字和下划线。在此阶段需要仔细考虑项目名称，因为后续更改项目名将需要复杂的手工操作。
+. 选择项目中使用的 *Platform version*。如果没有特别需求，使用最新的发布版本。
 
-. 以下字段将自动填充：
-+
---
-* *Project location* – 新项目的路径。可以在字段中输入另一个目录或单击该字段旁边的省略号按钮来选择另一个目录。
+. 为了做 beta 测试或尝试使用新的 CUBA 平台功能，您也许需要使用一个不稳定的 CUBA 版本，即，以 `BETA` 或 `SNAPSHOT` 结尾的版本。需要勾选 *Show unstable versions* 复选框，才能在 *Platform version* 的下拉框中看到这些版本。注意，`SNAPSHOT` 发行版只在 `repo.cuba-platform.com` 仓库发布。
 
-* *Project namespace* – 命名空间将用作实体名称和数据库表的前缀。命名空间只能由拉丁字母组成，并且应尽可能短。
+. 在 *Languages support* 下拉框字段选择项目使用的编程语言，或者使用默认的 *Java* 语言。
 
-* *Root package* − Java 类的根（或基础）包。随后可以调整根包路径，但项目创建时生成的类不会自动更改。
+. 使用 *Available locales* 字段打开 *Locales* 编辑器对话框，可以为项目添加多地区支持。也可以稍后再修改该配置。
 
-* *Platform version* – 项目使用的平台版本。如果没有特别的需求，使用最新的版本即可，比如，不带 `BETA` 或者 `SNAPSHOT` 后缀的版本。在项目导入时会自动从仓库下载平台的工件。
---
+. 点击 *Next*。
+
+. 向导的第二步中，可以配置主数据存储属性，比如，为新项目选择本地的 PostgreSQL 作为数据库。这些属性也可以稍后修改。
+
+. 点击 *Next*。
+
+. 如果需要，可以修改 *Project name* 字段的值。该名称只能包含拉丁字母、数字和下划线。
+
+. *Project location* 配置新项目的路径。可以输入其他的值或者点击省略号按钮修改这个路径。
 
 . 单击 *Finish*。空项目将在指定目录中创建，之后 Studio 会自动通过 Gradle 文件开始构建项目信息并为项目建立索引。
 

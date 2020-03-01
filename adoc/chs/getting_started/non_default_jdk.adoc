@@ -1,0 +1,39 @@
+:sourcesdir: ../../../source
+
+[[using_non_default_jdk]]
+=== 使用非默认 JDK
+--
+IntelliJ IDEA 和 Gradle 默认都会使用由 `JAVA_HOME` 环境变量定义的 Java Development Kit (JDK) 来装配和运行 Java 项目。如需使用非默认的 JDK，又不想修改全局的配置，需要额外几步操作。
+
+我们假设有这样的环境配置：
+
+* 开发机器的 `JAVA_HOME` 环境变量指向 JDK 8，但是由于某些原因，您没有办法修改这个配置。
+* 项目中想使用 JDK 11。
+* 您希望能使用新的 Java 11 API，因此项目需要使用 JDK 11 来编译和运行。
+
+请按照以下步骤进行配置：
+
+* 为 IDEA SDK 添加 JDK 11，如已添加，请忽略这步。点击主菜单 *File* -> *Project Structure*。在左侧菜单选择 *SDKs*。点击 *+* 按钮 -> 选择 *JDK* -> 选择 JDK 11 安装目录。点击 *OK* 保存更改。
+
+* 当创建新的 CUBA 项目时，在 *Project SDK* 字段选择 “11”。
+
+* 对于已有项目，打开主菜单 -> *File* -> *Project Structure* 窗口，然后修改 *Project* -> *Project SDK* 值。
+
+* 切换到项目根目录，并创建 `gradle.properties` 文件，包含以下内容：
+[source]
+----
+# Path to JDK 11
+org.gradle.java.home = C:/Java/jdk-11.0.5.10-hotspot
+----
+
+* 修改项目根目录的 `build.gradle` 文件。并在 `configure([globalModule, coreModule, webModule])` 块最后添加：
+----
+include::{sourcesdir}/getting_started/source-compat-11.txt[]
+----
+
+* 刷新 Gradle 项目配置：*Gradle* 工具窗口 -> *Reimport All Gradle Projects*；
+
+* 修改 *CUBA Application* 运行配置中的 JRE。打开主菜单 -> *Run* -> *Edit configurations...* -> *CUBA Application* -> 修改 *JVM* 字段的值。
+
+当这些修改完成之后，项目将会使用 JDK 11 进行编译和运行，而不需要修改全局系统配置。
+--

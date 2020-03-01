@@ -1,0 +1,130 @@
+:sourcesdir: ../../../../source
+
+[[jpa_support]]
+=== 启用 JPA 支持
+--
+对 JPA (Java Persistence Annotation) 的支持通过 *Java EE: EJB、JPA、Servlets* 插件提供。
+[WARNING]
+====
+下面描述的功能不在标准的 CUBA Studio 或者 IntelliJ IDEA 社区版中提供。
+====
+
+JPA 支持提供以下功能，对于开发 CUBA 应用程序能提供帮助：
+
+- JPQL 语法高亮、自动补齐以及语法检查，
+- JPA 控制台（基于 CUBA 7.1+ 的项目），
+- 实体源码中的代码检查，
+- 实体关系图，
+- 其他功能，参阅 https://www.jetbrains.com/help/idea/overview-of-jpa-support.html[JetBrains 网站].
+
+如需使用这些功能，在项目中做以下配置：
+
+- 为主数据存储配置数据源（Data Source）
+- 为所有的项目模块添加 JPA 切面
+
+Studio 支持快速配置以上几点。下面的介绍是针对 IDEA 2019.2 版本的。
+--
+
+[[jpa_support_datasource]]
+==== 配置数据源
+--
+可以通过 IDE 右侧的 *Database* 工具窗手动设置数据源。Studio 在项目打开时提供了自动数据源检测：
+
+image::features/jpa_support/datasource-notification.png[align="center"]
+
+如果不小心错过了这个消息提示，也可以通过 *Event Log* 工具窗口访问记录的消息，只需点击屏幕右下角的事件日志按钮即可打开。
+
+点击 *Configure* 打开已经预填写的 *Data Sources and Drivers* 对话框。
+
+image::features/jpa_support/add-ds-dialog.png[align="center"]
+
+数据源检测机制会根据主数据存储的设置自动发现配置参数，用来填写驱动和其他连接相关属性。但是也可以手动在 "Data Sources and Drivers" 窗口配置数据库驱动：
+
+- 点击对话框底部的 *Download missing driver files* 连接，驱动文件会自动下载。
+- 点击 *Test Connection* 测试自动发现的连接参数是否正确。如果需要可以修改参数。
+- 将 *Save* 字段的值设置为 *Forever*。否则 IDE 重启之后会不记得密码。
+- 点击 *OK* 按钮关闭对话框。
+
+如果 JPA 切面已经创建，可以通过 *Persistence* 工具窗口为其分配新建的数据源。在每个切面上点击鼠标右键，选择 *Assign Data Sources...* -> 修改数据源 -> *OK*。
+
+--
+
+[[jpa_support_facets]]
+==== 配置 JPA 切面
+项目中的每个模块都需要一个 *JPA* 切面，否则此模块不能使用 JPQL 语言相关的功能。
+
+JPA 切面自动检测::
++
+--
+Studio 能自动检测切面。当第一次打开新项目时，会在 IDE 的右下角提示 *Frameworks Detected*：
+
+image::features/jpa_support/facet-detection.png[align="center"]
+
+如果项目中已经配置 JPA 切面，则不会弹出此消息。如果想要看到此消息，可以通过主菜单 *File* -> *Project Structure* 打开对话框移除已有的切面。然后重新打开项目，执行 Gradle 刷新操作（*Gradle* 工具窗 -> *Reimport All Gradle Projects* 按钮）。
+
+如果不小心错过了这个消息提示，也可以通过 *Event Log* 工具窗口访问记录的消息，只需点击屏幕右下角的事件日志按钮即可打开：
+
+image::features/jpa_support/event-log.png[align="center"]
+
+点击 *Configure* 链接，会出现 *Setup Framework* 对话框。
+
+反选 *Web* 分组内的条目，然后点击 *OK*：
+
+image::features/jpa_support/setup-frameworks.png[align="center"]
+
+如需检查切面的配置，打开 IDE 左边的 *Persistence* 工具窗口。然后展开其中一个节点，比如，*app-global* 模块匹配的那个节点，然后展开 *Entities* 子节点。此时能看到项目中定义的实体或者从应用程序组件继承的实体：
+
+image::features/jpa_support/persistence-tool-window.png[align="center"]
+--
+
+JPA 切面手动配置::
++
+--
+也可以通过 *File* -> *Project Structure* 对话框手动配置 JPA 切面。
+
+- 打开 *Project Structure* 对话框，
+- 在左侧菜单选择 *Facets*，
+- 移除所有已经存在的 JPA 切面，
+- 对项目中的所有模块：global、core、gui、web、portal - 做下面的操作：
+- 点击 "+"（添加）图标，
+- 选择 JPA 切面类型，
+- 选择以 “main” 结束的子模块，比如，"sample-sales.app-global.main"。 点击 *OK*。
+- 在对话框的右下角，修改 *Default JPA Provider* 为 *CUBA EclipseLink*。
+- 对其他模块重复上述操作。
+
+[TIP]
+====
+别忘了设置底部的 *Default JPA Provider* 字段为 *CUBA EclipseLink*，否则 JPA 控制台不会有效。
+====
+
+image::features/jpa_support/add-facet-manually.png[align="center"]
+
+--
+
+==== 功能示例
+--
+在配置了 JPA 切面的模块的 Java 和 XML 文件里，JPQL 语法高亮，自动补齐和自动检查：
+
+image::features/jpa_support/jpql_highlighting.png[align="center"]
+image::features/jpa_support/jpql_java.png[align="center"]
+
+实体关系图（ER 图）可以从 *Persistence* 工具窗口打开：右键点击任何模块，选择 *Entities* -> *ER Diagram*。可以取消顶部 *Superclasses* 的选择，这样就不会显示通用的基类：
+
+image::features/jpa_support/er_diagram.png[align="center"]
+
+JPA 控制台::
+
+[TIP]
+====
+注意，JPA 控制台只有在 CUBA 7.1+ 项目才能使用。
+====
+
+JPA 控制台可以从 *Persistence* 工具窗口打开：展开任何模块 -> 选择 *Entities* 然后点击 *Console* 按钮：
+
+image::features/jpa_support/jpa_console_button.png[align="center"]
+
+会打开控制台窗口。现在可以在开发数据库上执行任何 JPQL 查询操作了：
+
+image::features/jpa_support/jpa_console.png[align="center"]
+
+--

@@ -1,0 +1,36 @@
+:sourcesdir: ../../../../source
+
+[[data_model_enums]]
+==== 使用枚举
+
+Studio 提供一组操作和可视化设计器帮助在应用程序中使用 {main_man_url}/enum_attributes.html[枚举] 。
+
+枚举与实体一并在 CUBA 项目树的 *Data Model* 部分展示。
+
+[[data_model_enum_creation]]
+创建新的枚举::
++
+--
+. 在项目树中选择 *Data Model* 或者其下面的一个包名，右键点击后选择 *New > Enumeration* 。
+
+. 弹出 *New CUBA Enumeration* 对话框。在 *Class* 字段输入枚举类的名称，选择包名，Id 类型（推荐 String）。
+
+image::features/data_model/create_enum.png[align="center"]
+
+. Studio 将会创建枚举类，创建的类会在源码编辑器打开。编辑器的底部会显示两个标签页：
+
+** *Text* 包含源代码。
+
+** *Designer* 显示枚举设计器，这里可以使用图形界面配置枚举和值（常量），避免写 Java 代码。
+
+image::features/data_model/enum_designer.png[align="center"]
+
+使用 *Values* 表格和关联的按钮设置枚举值常量。
+
+* *Name* 列用于输入代码中使用的常量名称。这个名称可以后期修改而不影响数据库已经存在的数据。
+* *Value* 列用于输入枚举常量的 *id*。这是数据库保存的实际值。
+* 地球按钮用于为选中的常量设置本地化名称（用户友好名称）。
+
+设计器也提供将枚举的 *Id type* 从 String 修改为 Integer（或反过来）的功能。只需要打开枚举设计界面然后切换 *Id type* 的值。Studio 会自动在代码中对使用该枚举的地方做代码迁移。之后，您可以修改已有的枚举常量。注意，这种改动不会对数据库表格已存在的枚举值做改动，需要手动做数据迁移，比如可以通过一个数据库的更新脚本来实现。
+
+--

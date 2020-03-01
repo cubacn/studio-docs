@@ -1,0 +1,94 @@
+[[relnotes_13]]
+
+版本 13::
++
+--
+界面设计器的布局重新排布了，主要为了以下目的：
+
+* 高效的使用 IDE 窗口的空间。
+* 便于在 XML 描述源码和布局预览之间切换。
+* 允许熟练的开发者在查看和编辑 XML 代码时使用设计器的功能。
+
+对界面设计器做了如下变更和改进：
+
+. 界面设计器的面板修改为独立的 IDE 工具窗口。*Component Hierarchy* 展示在 IDE 的右上角，与之前一样。*Component Palette* 展示在 IDE 的右下角。*Component Inspector* 展示在 IDE 的左下角并包含属性和处理器标签页。
++
+当在编辑器打开界面描述时，这些工具窗口会自动打开。当在编辑器切换界面描述文件时，工具窗口的内容会随之改变。有时当您打开其他的 IDE 工具窗口（比如 Gradle、Persistence 等），设计器的面板会被隐藏，可以通过点击位于左右的 IDE 工具窗口按钮重新打开。
++
+保留在左下角展示 *Component Inspector* 是为了满足熟悉之前布局的开发者们。如果需要将该面板移至右侧，点击面板标题的 *Move to Right Bottom* 即可。
++
+image::release_notes/v-13-sd-tool-windows.png[align="center"]
+
+. 布局预览面板现在与界面描述的源码编辑面板共享编辑器的空间。去掉了原来的 *Text* 和 *Designer* 标签组。现在在界面描述的右上部添加了四个按钮用于切换界面预览模式：
+.. *Editor only* - 在编辑器只显示源码。
+.. *Editor and Preview* - 编辑器空间分割，包含源码和预览。
+.. *Preview only* - 只显示预览（与之前版本的界面设计器布局类似）。
+.. *Preview in Window* - 源码在编辑器展示，但是预览通过单独的窗口展示，可以将预览窗口移至其他显示设备。
+
+. 当编辑 XML 代码时会激活设计器面板，面板会与编辑器同步交互。熟练开发者们通过编辑 XML 源码切换和修改界面描述，他们现在也能获得界面设计器的编辑功能帮助：
+.. 当编辑器的光标从一个 XML 标签移至另一个标签时，会在 *Component Hierarchy* 和 *Component Inspector* 面板自动选中对应的组件。
+.. 在层级面板点击元素会将源码编辑器的光标移至对应的 XML 标签。
+.. 可以从工具箱拖拽新组件至层级树，当编辑器只显示源码时，也可以在左下角的探查面板修改组件的排序和编辑组件属性。源码会直接同步所有改动。
+
+. 界面编辑器现在能在 *Component Hierarchy* 树中展示表格（或数据网格）的列。作为这个改动的一部分，删除了之前的几个用来编辑列和操作的弹窗。现在可以在 *Component Inspector* 面板直接查看和编辑列、操作属性以及事件处理器。添加新的列或者操作也变得更加容易了。当选中一个表格、表格的一列或者操作， *Component Inspector* 会显示 *+ Add* 按钮。点击该按钮可以添加列或者操作。
+
+. 界面设计器还添加了组件创建向导对话框。添加数据容器、表格、网格、表格的列、表格操作以及表单的字段组件变得更加容易了。
++
+当为界面添加上面提及的任何一个组件时，会弹出一个对话框用来指定最重要的组件属性。比如，当为界面添加数据网格时，可以选择已有的数据容器或者创建新的数据容器，能设置组件 id 并且为网格选择一组标准操作和按钮。
++
+image::release_notes/v-13-datagrid-wizard.png[align="center"]
+
+. 界面设计器的 *Component Hierarchy* 面板添加了可以铜鼓输入文字查找组件的功能：
++
+image::release_notes/v-13-search-hierarchy.png[align="center"]
+
+. *Component Hierarchy* 面板的右键菜单也添加了额外的转换功能。现在可以快速的将 `TextField` 组件转换为 `TextArea` 或者其他组件：
++
+image::release_notes/v-13-text-field-conversions.png[align="center"]
+
+. *Component Hierarchy* 面板右键菜单的 *Inject to Controller* 操作现在支持可以同时注入多个选中的组件。
+
+其他功能和改进：
+
+. 添加了对 https://kotlinlang.org[Kotlin] 编程语言的支持。在项目创建向导中，如果选择的平台版本为 `7.2.0` 或更新版本，则可以选择 Kotlin 为项目的编程语言。CUBA 项目的所有元素：实体、界面、服务都可以用 Kotlin 生成。Studio 的可视化设计器、智能自动补全、自动检查以及热部署也都支持 Kotlin。
+
+. 对于使用平台 `7.2.0` 或更新版本的项目，对 *Hot Deploy* 机制做了重写（支持所有语言），主要是为了支持 Kotlin。如果在 Java、Groovy 项目中遇到了热部署的问题，可以切换至之前的机制，通过关闭这个设置：*CUBA* -> *Settings* -> *Project Settings* -> *Hot deploy compiled classes*。
+
+. 扩展了 CUBA 项目创建向导。在几个步骤之间重新安排了各个字段，并且添加了新的字段：模块前缀、支持的语言、地区、主数据存储属性。
+
+. *CUBA Application* 运行配置添加了两个额外的配置：*Command line arguments - 命令行参数* 和 *Environment Variables - 环境变量*。这些设置会在 Tomcat 运行调试模式 CUBA 应用程序的时候生效。比如，通过设置命令行参数，可以配置非默认时区：`-Duser.timezone=Europe/London` 或者增加内存：`-Xmx1500m`。
++
+image::release_notes/v-13-run-configuration.png[align="center"]
+
+. 为登录界面设计了新模板，新的布局和设计可以在基于 CUBA `7.2.0` 或最新的版本的项目中使用。新的登录界面样式可以查看 https://github.com/cuba-platform/cuba/issues/2455[GitHub] 了解。如需在项目中添加新的登录窗口，可以在 *New* -> *Screen* 向导中选择 *Login screen with branding image* 模板。
+
+. 在 *Project Properties* 对话框中添加了修改项目工件版本的功能：
++
+image::release_notes/v-13-artifact-version.png[align="center"]
+
+. 在服务和 Spring bean 源码的编辑器顶部操作面板中添加了 *Inject* 操作。之前只能在通用菜单（Alt+Insert）使用。
+
+. 在 *Data Store Properties* 窗口添加了方便配置数据库连接的对话框。为 *Connection params* 字段添加了一个 “铅笔” 按钮，点击这个按钮，会弹出一个窗口用于配置连接参数。Studio 会考虑数据库特定的分隔符将参数转换为连接字符串：
++
+image::release_notes/v-13-connection-params.png[align="center"]
+
+. *Locales* 对话框现在能根据可用的语言给出提示并根据选择的语言自动填充地区代码：
++
+image::release_notes/v-13-locales-dialog.png[align="center"]
+
+. 扩展了 *Attribute is not included into the view - 属性未包含在视图中* 的代码检查。现在还会检查关联了持久化属性的非持久化属性，这种关联是通过 `@MetaProperty#related` 注解参数指定的。
+
+. 改进了 Studio 处理 Gradle 项目同步失败的行为。现在 *CUBA* 主菜单会一直显示，并包含附加的菜单项：
+.. *Re-Import Gradle Project* 菜单项，可以用来处理一次性的网络访问故障。
+.. *Restore Project to the Latest State* 菜单项，能将 Gradle 构建脚本恢复到上次成功导入的状态，这可以放置无意的或者错误的脚本修改。
++
+image::release_notes/v-13-menu-import-failed.png[align="center"]
+
+. 独立版 Studio IDE 升级到 IntelliJ Community Edition *2019.2*。
+之前下载的独立版 Studio IDE 不会自动升级，需要从 {cuba-download-site}[CUBA Platform] 网站下载新的版本。
+
+. 很多其他的小改进和问题修复：
+
+** pass:macros[https://youtrack.cuba-platform.com/issues/STUDIO?q=Fixed%20in%20builds:%2013.0[Studio 13.0 解决的问题\]]
+
+--

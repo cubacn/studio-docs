@@ -15,10 +15,17 @@
 * 单击主菜单中的 *CUBA > Project Properties*，或双击 CUBA 项目树中的 *Project > Properties*。
 
 * 在 *CUBA Project Properties* 对话框中，在 *Platform version* 字段中选择所需的 CUBA 版本。
+
+* 为了做 beta 测试或尝试使用新的 CUBA 平台功能，您也许需要使用一个不稳定的 CUBA 版本，即，以 `BETA` 或 `SNAPSHOT` 结尾的版本。需要勾选 *Show unstable versions* 复选框，才能在 *Platform version* 的下拉框中看到这些版本。
++
+[TIP]
+====
+只有使用了 `repo.cuba-platform.com` 仓库才能看到 SNAPSHOT 版本。
+====
 +
 [WARNING]
 ====
-如果使用 `repo.cuba-platform.com` 仓库，则可以使用快照（SNAPSHOT）版本。强烈建议不要在生产环境使用快照版本。
+强烈建议不要在生产环境使用 `BETA` 或 `SNAPSHOT` 版本。
 ====
 
 * 单击 *OK*，然后确认。
@@ -28,6 +35,13 @@
 * Studio 会自动执行迁移，更新脚本（如果需要）并运行 Gradle `clean` 和 `undeploy` 任务。
 
 * 如果升级到新的功能版本，可能有新的改动使得项目不能运行，请查看 {rel_notes_url}[Release Notes] 中的 _Breaking Changes_ 部分，并相应地对项目进行修改。
+
+* 如果您的项目包含 *CUBA Add-ons*，您也许需要升级到兼容当前 CUBA 版本的合适扩展插件版本：
+** 打开 CUBA 项目树的 *Project* -> *Add-ons*。
+** 选择 *Updates* 标签页。
+** 选择所有能升级的插件。
+** 点击 *Apply & Close*.
+** 等依赖下载完成并且项目重新建立索引。
 
 * 尝试通过执行 *CUBA > Build Tasks > Assemble* 来组装项目。如果编译不通过，可以按照日志输出来修复代码。
 

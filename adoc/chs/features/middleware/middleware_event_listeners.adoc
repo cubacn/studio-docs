@@ -1,0 +1,29 @@
+:sourcesdir: ../../../../source
+
+[[middleware_event_listeners]]
+==== 创建事件监听器
+
+事件监听器是指，在 Spring bean 中，有一个或者多个监听器方法，接收 Event 对象作为参数，并包含对该事件响应的代码。可以在 {main_man_url}/events.html[开发者手册] 中了解更多关于事件和事件监听器的内容。
+
+Studio 可以为多种应用程序事件创建监听器的脚手架代码：
+
+* {main_man_url}/entityChangedEvent.html[EntityChangedEvent]
+* {main_man_url}/app_lifecycle_events.html[应用程序生命周期事件]
+* {main_man_url}/login.html#login_events[登录验证事件和钩子]
+
+可以生成新的监听器类或者为已有的类添加监听器。
+
+[[middleware_event_listeners_new_class]]
+新建监听器类::
+要创建新的监听器类，在 CUBA 项目树的 *Middleware* 部分点击右键，选择 *New* -> *Event Listener* 条目。
+
+image::features/middleware/create_event_listener.png[align="center"]
+
+对话框中可以选择监听器类所在的模块。事件监听器可以位于 web 模块，但是此时只有有限的事件可以使用。选择事件类型，按照向导提供所需的参数并点击 *Finish* 按钮生成类代码。
+
+[[middleware_event_listeners_add_method]]
+为已有类添加监听器方法::
+打开已有的 Spring Bean，在代码编辑器顶部的操作面板点击 *Subscribe to event*：
+
+image::features/middleware/add_listener_method.png[align="center"]
+

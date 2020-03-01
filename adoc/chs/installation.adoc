@@ -86,3 +86,152 @@ IntelliJ IDEA 插件安装::
 
 . 点击 *Install* ，之后按照 IDE 的步骤继续安装。
 --
+
+[[install_proxy_setup]]
+=== 使用代理
+--
+如要配置 CUBA Studio 通过代理服务器访问网络，需要按照下列步骤配置：
+
+. 配置 IntelliJ IDEA （或 CUBA Studio）
+. 配置 Gradle
+. 配置 Git（可选）
+--
+
+配置 IDEA（CUBA Studio）代理::
++
+--
+* 打开 *Settings* 对话框：主菜单 -> *File* -> *Settings*
+* 选择 *Appearance & Behavior* -> *System Settings* -> *HTTP Proxy*
+* 设置必要的参数值，然后点击 *Check connection* 进行测试：
+
+image::proxy-idea.png[align="center"]
+
+请参考 https://www.jetbrains.com/help/idea/settings-http-proxy.html[IDEA 代理配置] 了解更多内容。
+
+--
+配置 Gradle 代理::
++
+--
+* 在用户主目录找到 *~/.gradle/gradle.properties* 文件
+* 编辑该文件，按照 https://docs.gradle.org/current/userguide/build_environment.html#sec:accessing_the_web_via_a_proxy[Gradle 文档] 配置代理参数：
+
+[source, java]
+----                  
+include::{sourcesdir}/gradle-proxy.properties[]
+----
+--
+
+配置 Git 代理（可选）::
++
+--
+也许您想要配置 Git 版本控制软件的代理，比如需要从 CUBA https://github.com/cuba-platform?utf8=✓&q=sample&type=&language=[GitHub 仓库] 下载示例项目：
+
+运行该命令：
+[source]
+----
+include::{sourcesdir}/git-proxy.txt[]
+----
+
+参考 https://git-scm.com/docs/git-config#Documentation/git-config.txt-httpproxy[Git 文档] 了解更多细节。
+--
+
+[[gradle_offline_mode]]
+=== 离线模式
+--
+可以在没有联网的情况下使用 Studio 开发项目，前提是所有项目所需的依赖已经下载过，比如，项目已经打开并且使用当前的 Studio 进行过装配（assemble）。离线模式下，Studio 的部分功能将无法使用，比如无法修改 CUBA 平台的版本或者浏览 CUBA 的插件市场。
+
+要使用里面模式，打开 IDE 右边的 *Gradle* 工具窗口，然后点击 *Toggle Offline Mode* 按钮：
+
+image::gradle-offline-mode.png[align="center"]
+
+在离线模式中，Gradle 使用缓存的依赖执行所有的项目构建任务。并且不会尝试访问网络下载新的依赖。如果所需的依赖在缓存中不存在，构建执行则会失败。
+--
+
+[[install_plugin_nonstandard]]
+=== 非标准 Studio 版本
+--
+有时需要在 IDE 中使用一个非标准的 Studio build。想试用最新的 Studio 功能或者参与 Beta 版本的测试。使用非标准的 Studio build 需要在 IntelliJ IDEA 中安装特定的插件版本。
+
+[TIP]
+====
+非标准的 Studio 版本在商业订阅的需求上与稳定版一样。
+====
+
+--
+
+[[install_plugin_beta]]
+Beta 发布版::
++
+--
+Beta Studio 发布版会在下一个 Studio 的主版本发布之前的几周发布。这些版本也已经测试过，但是还可能包含一些未解决的问题。Beta 版本主要是为了：
+
+* 为感兴趣的用户提供新 Studio 功能的前期试用。
+* 帮助 CUBA 团队在更广泛的工作区和项目基础上测试即将发布的新 Studio 版本并提供反馈。
+
+如需试用 Beta 版本，需要按照以下步骤操作：
+
+. 打开主菜单 -> *File* -> *Settings* -> *Plugins* 对话框。
+. 点击 image:gear_button.png[齿轮] 图标，然后选择 *Manage Plugin Repositories*。
+. 点击 *+* (*Add*) 然后在仓库 URL 地址字段输入：
+https://plugins.jetbrains.com/plugins/beta/list
+. 切换至 *Marketplace* 标签页。您应当能看见 CUBA 插件升级至 `BETA` 版本的请求。
+. 点击 *Update*。
+. 根据提示重启 IDE。
+
+如果需要切换会稳定的插件版本，按照以下步骤：
+
+. 打开主菜单 -> *File* -> *Settings* -> *Plugins* 对话框。
+. 卸载 CUBA 插件。
+. 点击 image:gear_button.png[齿轮] 图标并选择 *Manage Plugin Repositories*。
+. 从列表移除 “beta” 仓库。
+. 重新安装 CUBA 插件，会从稳定版的仓库安装。
+
+--
+
+[[install_plugin_nightly]]
+夜间版本::
++
+--
+Nightly Studio builds 会作为持续集成流程的一部分每天晚上发布。这些版本包含最新改动。如果想做第一个吃螃蟹的人，可以切换到夜间版本，获得最新的功能、提升以及支持即将发布的新 CUBA 平台版本。
+
+[WARNING]
+====
+夜间版本包含一些未经 QA 测试的改动。因此这些 build 可能包含严重的功能性缺陷。
+====
+
+如需用夜间版本，需要按照以下步骤操作：
+
+. 打开主菜单 -> *File* -> *Settings* -> *Plugins* 对话框。
+. 点击 image:gear_button.png[齿轮] 图标，然后选择 *Manage Plugin Repositories*。
+. 点击 *+* (*Add*) 然后在仓库 URL 地址字段输入：
+https://plugins.jetbrains.com/plugins/haulmont_nightly/list
+. 切换至 *Marketplace* 标签页。您应当能看见 CUBA 插件升级至 `NIGHTLY` 版本的请求。
+. 点击 *Update*。
+. 根据提示重启 IDE。
+
+由于夜间版本是每天晚上发布，您会每天都收到 IDE 发出 “有插件可更新” 的提示。
+
+如果需要切换会稳定的插件版本，按照以下步骤：
+
+. 打开主菜单 -> *File* -> *Settings* -> *Plugins* 对话框。
+. 卸载 CUBA 插件。
+. 点击 image:gear_button.png[齿轮] 图标并选择 *Manage Plugin Repositories*。
+. 从列表移除 “nightly” 仓库。
+. 重新安装 CUBA 插件，会从稳定版的仓库安装。
+--
+
+[[install_plugin_from_disk]]
+从硬盘安装插件::
++
+--
+Studio 插件的任何发布版，包括之前的一些版本，都能从插件仓库网站手动下载然后安装到 IntelliJ IDEA。按照下列步骤：
+
+. 在 JetBrains Plugin 仓库打开 {plugin-repository-site}[CUBA 插件] 页。
+. 选择需要下载版本的通道（稳定版、Beta 版、夜间版）。
+. 在 *Version History* 列表中找到需要下载的 build 版本。
+. 点击 *Download* 开始下载。
+. 在 IDEA 中打开主菜单 -> *File* -> *Settings* -> *Plugins* 对话框。
+. 点击 image:gear_button.png[齿轮] 图标并选择 *Install Plugin from Disk...*。
+. 选择刚下载的 zip 文件，并点击 *OK*。
+. 根据提示重启 IDE。
+--

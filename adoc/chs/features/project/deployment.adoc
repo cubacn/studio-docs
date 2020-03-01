@@ -2,18 +2,20 @@
 
 [[deployment]]
 ==== 部署设置
-
+--
 Studio 中有一些与部署相关的编辑界面，用于对构建部署工件的 Gradle 任务进行设置。可以通过 *CUBA > Deployment* 主菜单打开这些编辑界面，也可以通过双击项目树中的 *Project > Deployment* 项来打开。
 
-*WAR Settings* 编辑界面允许设置 WAR 文件的构建。完成设置后，会在 `build.gradle` 中创建 {main_man_url}/build.gradle_buildWar.html[buildWar] 任务。
+image::features/project/deployment-settings.png[align="center"]
+--
+
+[[deployment_war_settings]]
+WAR 设置::
+--
+*WAR Settings* 编辑界面允许设置 WAR 文件的构建配置。完成设置后，会在 `build.gradle` 中创建 {main_man_url}/build.gradle_buildWar.html[buildWar] 任务。
 
 * *Build WAR* - 如果选中，`buildWar` 任务会被配置在  `build.gradle` 中。
 
 * *Include JDBC driver* - 是否应将 JDBC 驱动程序包含在 WAR 文件中。
-
-* *Include Tomcat's context.xml* - 是否应将 `context.xml`（Tomcat 部署描述）包含在 WAR 文件中。
-
-* *Custom context.xml path* - Tomcat 部署描述 `context.xml` 相对于项目根目录的路径。这个字段仅在选中 *Include Tomcat's context.xml* 时有效。单击 *Generate* 来自动创建此文件。
 
 * *Single WAR for Middleware and Web Client* - 是否构建将中间件和 Web 客户端应用程序 block 打包到一起的单个 WAR。
 
@@ -21,9 +23,25 @@ Studio 中有一些与部署相关的编辑界面，用于对构建部署工件�
 
 * *Logback configuration file* - `logback.xml` 配置文件相对于项目根目录的路径。单击 *Generate* 以自动创建此文件。
 
+* 对基于 CUBA 版本 `7.2` 及以上版本的项目：
+
+** *Custom data store configuration* - 可以指定 WAR 工件要使用的自定义数据存储配置。
+
+* 对基于 CUBA `7.1` 及以下版本：
+
+** *Include Tomcat's context.xml* - 是否需要再 WAR 文件中包含 `context.xml`（Tomcat 部署描述文件）。
+
+** *Custom context.xml path* - 相对于项目根目录指定 `context.xml` Tomcat 部署描述文件。如果勾选了 *Include Tomcat's context.xml*，则启用该配置。点击 *Generate* 自动创建该文件。
+
 * *App properties* - 要为此部署定义的一组应用程序属性。这些属性会添加到 WAR 内的 `/WEB-INF/local.app.properties` 文件中。
 
-* *UberJAR Settings* 编辑界面允许对 Uber JAR 的构建进行设置。完成设置后，会在 `build.gradle` 中创建 {main_man_url}/build.gradle_buildUberJar.html[buildUberJar] 任务。
+如果在设置中开启了相应的属性，则会显示 *Build WAR* 子元素。点击会执行 `gradlew buildWar` 任务。
+--
+
+[[deployment_uber_jar_settings]]
+Uber JAR 设置::
+--
+*UberJAR Settings* 编辑界面允许对 Uber JAR 的构建进行设置。完成设置后，会在 `build.gradle` 中创建 {main_man_url}/build.gradle_buildUberJar.html[buildUberJar] 任务。
 
 * *Build Uber JAR* - 如果选中，`buildUberJar` 任务会被配置在 `build.gradle` 中。
 
@@ -31,8 +49,16 @@ Studio 中有一些与部署相关的编辑界面，用于对构建部署工件�
 
 * *Logback configuration file* - `logback.xml` 配置文件相对于项目根目录的路径。单击 *Generate* 可自动创建此文件。
 
-* *Custom Jetty environment file* - 嵌入式 Jetty 服务使用的 `jetty-env.xml` 配置文件路径，相对于项目根目录。必填项。单击 *Generate* 可自动创建此文件。
+* 对基于 CUBA 版本 `7.2` 及以上版本的项目：
+
+** *Custom data store configuration* - 可以指定 UberJAR 工件要使用的自定义数据存储配置。
+
+* 对基于 CUBA `7.1` 及以下版本：
+** *Custom Jetty environment file* - 嵌入式 Jetty 服务使用的 `jetty-env.xml` 配置文件路径，相对于项目根目录。单击 *Generate* 可自动创建此文件。
 
 * *App properties* -要为此部署定义的一组应用程序属性。这些属性将被添加到 Uber JAR 内的 `/WEB-INF/local.app.properties` 文件中。
 
 * *Core port、 Web port、 Portal port* 字段允许为相应应用程序块的嵌入式服务设置端口。如果选中 Single Uber JAR，这些字段就不设置了。默认端口值在 {main_man_url}/build.gradle_buildUberJar.html[文档] 中有描述。在运行 JAR 时可以使用 `-port` 命令行参数设置端口。
+
+如果在设置中开启了相应的属性，则会显示 *Build UberJAR* 子元素。点击会执行 `gradlew buildUberJar` 任务。
+--

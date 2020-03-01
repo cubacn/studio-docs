@@ -9,11 +9,29 @@
 
 image::features/generic_ui/controller.png[align="center"]
 
+[[controller_action_panel]]
+顶部操作面板::
++
+--
+操作面板位于控制器代码编辑器的顶部。展示下列操作：
+
+* *<entity class name>* - 切换至当前浏览界面或者编辑界面关联的实体。
+* *Descriptor* - 切换至对应的界面描述文件
+* *Main Menu* - 可以将当前界面加入主菜单或者切换至主菜单配置
+* *Inject* - 帮助在控制器类中注入依赖，下面有详细介绍
+* *Subscribe to Event* - 可以订阅各种事件，下面有详细介绍
+* *Install Delegate* - 可以生成组件的委托，下面有详细介绍
+
+--
+
 [[controller_injection]]
 依赖注入::
 +
 --
-依赖注入是在界面控制器代码中获取对可视化组件和 API 端点(api endpoint)的引用的主要方式。当然，也可以编写所需类型的字段并手动进行注解。但是 Studio 提供了一个专用的窗口，这个窗口允许从列表中选择一个对象并自动创建合适的字段。按下 Alt+Insert（Cmd+N）键，在弹出的 *Generate* 菜单中选择 *Inject...*，就会打开这个窗口：
+依赖注入是在界面控制器代码中获取对可视化组件和 API 端点(api endpoint)的引用的主要方式。当然，也可以编写所需类型的字段并手动进行注解。但是 Studio 提供了一个专用的窗口，这个窗口允许从列表中选择一个对象并自动创建合适的字段。窗口可以通过下列方式打开：
+
+* 点击顶部操作面板的 *Inject* 操作，
+* 按下 Alt+Insert（Cmd+N）键，在弹出的 *Generate* 菜单中选择 *Inject...*：
 
 image::features/generic_ui/controller_injection.png[align="center"]
 
@@ -23,14 +41,19 @@ image::features/generic_ui/controller_injection.png[align="center"]
 * 界面 API 接口，
 * 基础设施接口，
 * 中间层服务，
-* 配置接口。
+* 项目中定义的其他 Spring bean，
+* 配置接口，
+* SLF4J Logger 实例。
 --
 
 [[controller_events]]
 事件处理::
 +
 --
-通过创建事件处理程序，可以在界面生命周期的各个点执行代码并对用户操作做出响应。处理程序是一个用 `@Subscribe` 注解的控制器方法，使用事件作为输入参数。按下 Alt+Insert（Cmd+N）键，在弹出的 *Generate* 菜单中选择 *Subscribe to Event*，就可以在 Studio 中创建此类方法：
+通过创建事件处理程序，可以在界面生命周期的各个点执行代码并对用户操作做出响应。处理程序是一个用 `@Subscribe` 注解的控制器方法，使用事件作为输入参数。通过下列方式创建：
+
+* 点击顶部操作面板的 *Subscribe to Event* 操作，
+* 按下 Alt+Insert（Cmd+N）键，在弹出的 *Generate* 菜单中选择 *Subscribe to Event*：
 
 image::features/generic_ui/subscribe_dialog.png[align="center"]
 
@@ -55,9 +78,12 @@ image::features/generic_ui/subscribe_dialog.png[align="center"]
 --
 使用委托，可以为各种界面机制提供代码来代替其标准实现。例如，可以提供自己的函数来提交数据或选择表格行的图标。
 
-委托是具有特定签名的控制器方法，并使用 `@Install` 进行注解。按下 Alt+Insert（Cmd+N）键，在弹出的 *Generate* 菜单中选择 *Install Delegate*，就可以在 Studio 中创建此类方法：
+委托是具有特定签名的控制器方法，并使用 `@Install` 进行注解。通过下列方式添加：
+
+* 点击顶部操作面板的 *Install Delegate* 操作，
+* 按下 Alt+Insert（Cmd+N）键，在弹出的 *Generate* 菜单中选择 *Install Delegate*:
 
 image::features/generic_ui/install_dialog.png[align="center"]
 
-每个事件都在窗口右边提供了描述，该描述是从框架的 Javadocs 中提取的。
+每个委托都在窗口右边提供了描述，该描述是从框架的 Javadocs 中提取的。
 --
