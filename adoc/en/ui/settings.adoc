@@ -2,8 +2,8 @@
 
 [[settings]]
 === CUBA Settings
-
-If you click the *CUBA > Settings* main menu item, you will see the IDE settings window filtered by the *cuba* word. Find the *CUBA* section under *Languages & Frameworks*.
+--
+If you click the *CUBA > Settings* main menu item, you will see the IDE settings window with the *CUBA* section selected.
 
 The *CUBA* section itself contains the settings common to all projects opened in this Studio instance.
 
@@ -13,16 +13,16 @@ The *CUBA* section itself contains the settings common to all projects opened in
 
 * *Use embedded browser to open application* - if selected, the embedded web browser will be used when you double-click to the application URL in the *Runs At* project tree section.
 
-* *Visual designer theme* - theme of visual designers. Use `Autodetect` to select automatically depending on your IDE theme.
+* *Visual designer and embedded browser zoom percentage* - default zoom for screen designer's layout preview. You can adjust it later using one of actions located on the top of the preview panel.
 
-* *Visual designer zoom* - default zoom of visual designers. You can adjust it in a concrete designer using context menu opened by right-click.
-
-* *Old Studio integration enabled* - select this checkbox if you want to integrate this IDE instance with the old Studio SE or Studio Browser Edition. You will be able to open projects from the old Studio in this IDE.
+* *Enable integration* - select this checkbox if you want to integrate this IDE instance with the old Studio SE or Studio Browser Edition. You will be able to open projects from the old Studio in this IDE. Also this checkbox enables communicating with the Frontend Generator command line tool.
 
 * *Listening port* - a port for the old Studio integration. Make sure it is the same as specified in the old Studio *IDE Port* field.
+--
 
-* *Enable transaction block folding* - if selected, Java code editor will fold old-style `try-finally` blocks used for transaction control.
-
+Project settings::
++
+--
 The nested *Project settings* section contains the settings of the currently opened project. All non-default values are stored in the `studio-intellij.xml` file in the project root directory, which can be added to the version control system to share project settings between all developers in your team.
 
 * *Check compatibility between data model and database scheme* - show a warning whenever you start the application server and the current state of the data model differs from the database schema.
@@ -45,7 +45,7 @@ The nested *Project settings* section contains the settings of the currently ope
 
 * *Default parent package name for screens* - this field allows you to specify a default package to be used instead of screens when generating a Generic UI screen from template not associated with an entity. It is also added before the package with entity name for templates associated with an entity. For example, if you set ui in this field and create a blank screen, the default value for the package will be `com.company.sample.web.ui`.
 
-* *Default access modifier* - sets the modifier which Studio uses when generates entity fields.
+* *Default entity attribute access modifier* - sets the modifier which Studio uses when generates entity fields.
 
 * *Generate entity name with underscore symbol* - if selected, entity names will have `namespace_ClassName` format, for example `sales_Customer`. Otherwise it will be `namespace$ClassName`.
 
@@ -53,8 +53,18 @@ The nested *Project settings* section contains the settings of the currently ope
 
 * *Instant hot deploy* - this checkbox allows you to turn off hot deploy. If hot deployment is enabled, Studio dynamically updates the UI of your deployed web application as you apply or save changes to views, screens, messages or the main menu.
 
+* *Hot deploy compiled classes* - enables new hot deploy mechanism for projects based on CUBA 7.2 or later. The old mechanism used to copy Java sources to Tomcat configuration folders and compile them with a custom classloader. The new mechanism compiles source code on the side of the IDE and thus enables hot deploying Kotlin code. If you encounter problems with the new hot deploy mechanism, you can try to switch off this setting.
+
+* *Scaffolding language* - chooses which programming language is used to generate code in projects with Kotlin support. Available options are: *Kotlin*, *Java* and *Always Ask*. If your project has mixed Java / Kotlin content and you want to have control over scaffolding language for every new entity, service or screen - choose the *Always Ask* value in the drop-down. This setting is displayed only for projects with Kotlin support enabled.
+
 * *Hot Deploy Settings* - opens a dialog to customize hot deployment directories. For example, you might want to add folders where your web portal HTML and JavaScript files are located. When you change these files, Studio will copy them to respective destinations inside Tomcat. So you can just reload your web portal page to view the changes.
+
+* *Screen Generation Settings* - options affecting screen generation. These settings are used by the *New* -> *Screen...* wizard. The following screen settings are available:
+** *Default form field width* - used by entity editors
+** *Keep editor actions at the bottom* - used by entity editors that are opened as a "full screen" (not as dialog)
+** *Force modal open type for editors* - used by entity editors opened as a dialog
 
 * *Fold messages in* - allows you to control message folding in screen descriptors and controllers. If selected, the message keys will be replaced with actual values from the appropriate message pack.
 
 * *Message folding locale* - what message file to use when folding messages.
+--
